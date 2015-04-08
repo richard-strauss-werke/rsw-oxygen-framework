@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+
+@import "default-var";
+@import "custom-var";
+@import "combo-lists-schema";
+@import "ui";
+
+
+:root {
+	font-family: $baseFontFamily;
+	font-size: $baseFontSize;
+	line-height: $defaultLineHeight;
+	white-space:-oxy-trim-when-ws-only;
+	* {
+		white-space:-oxy-trim-when-ws-only;
+	}
+}
+
+*:before {
+	font-size:$labelFontSize;
+	color: $labelColor;
+}
+
+work {
+	@include pageHeader("WERK");
+	
+	identifier {
+		@include wideRowTwoButtons("insert.identifier", "Identifikator",
+			"Typ: "
+			editableCombo("@type", $values-mei_identifier-identifier-type)
+			" Nummer: "
+		);
+	}
+	
+	title {
+		&[type="main"]     { @include wideRow("Titel"); }
+		&[type="sub"]      { @include wideRow("Untertitel"); }
+		&[type="version"]  { @include wideRow("Fassung"); }
+		&[type="alt"]      { @include wideRow("Alternativtitel"); }
+		&[type="original"] { @include wideRow("Originaltitel"); }
+	}
+	
+	persName {
+		@include wideRowTwoButtons("insert.persNameMEI", "Person",
+			" Rolle: "
+			fixedValuesCombo("@role", $values-mei_marcRelator-list, $labels-mei_marcRelator-list, 15)
+			" Name: "
+			meiNameButton("Verweis auf eine Person einfügen", "person")
+		);
+		visibility: -oxy-collapse-text;
+	}
+	
+	date {
+		@include wideRowTwoButtons("insert.dateMEI", "Datierung",
+			oxy_editor(
+		    rendererClassName, "com.aerhard.oxygen.framework.mei.button.DateButton",
+		    swingEditorClassName, "com.aerhard.oxygen.framework.mei.button.DateButton",
+		    editText, true
+			)
+		);
+		visibility: -oxy-collapse-text;
+	}
+	
+	term {
+		@include wideRow("Klassifikation",
+			fixedValuesCombo("#text", $values-mei_data-keyword_work, $values-mei_data-keyword_work, 20)
+		);
+		visibility: -oxy-collapse-text;
+	}
+
+}
+

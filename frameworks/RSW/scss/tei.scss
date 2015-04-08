@@ -1,0 +1,2045 @@
+@charset "UTF-8";
+
+
+// TODO test on mac and linux and win xp
+
+// TODO dinge die keine container sind, nicht als container formatieren, sondern andere formatierung dafür einführen!
+
+
+@namespace xml "http://www.w3.org/XML/1998/namespace";
+@namespace rsw "http://richard-strauss-ausgabe.de/ns/1.0";
+@namespace oxy "http://www.oxygenxml.com/extensions/author";
+@namespace xi "http://www.w3.org/2001/XInclude";
+
+@import "default-var";
+@import "custom-var";
+@import "combo-lists-schema";
+@import "combo-lists";
+@import "ui";
+@import "fonts";
+
+@function handAttributeCombo($attribute) {
+	@return fixedValuesCombo($attribute,
+		oxy_xpath('string-join(//handNote/concat("\#",@xml:id), ",") '),
+		oxy_xpath('string-join(//handNote//abbr/replace(string(.), ",", "\\${comma}") , ",") ')
+	);
+}
+
+@function changeRefCombo() {
+	@return fixedValuesCombo("@change",
+		oxy_xpath('string-join(//change[parent::listChange]/concat("\#",@xml:id), ",") '),
+		oxy_xpath('string-join(//change[parent::listChange]/string(count(preceding::change)+1) , ",") ')
+	);
+}
+
+@mixin biblRow($additionalContent:""){
+	@include container();
+	&:before {
+		content:
+		button("insert.bibl")
+		button("remove.this")
+		" LITERATUR"
+		$lb $charIndent
+		button("insert.link.text.lit.noicon")
+		button("insert.link.text.rez.noicon")
+		button("insert_rs.noicon")
+		$lb $charIndent
+		$additionalContent
+		oxy_label(text, oxy_xpath('./rs/text()'), color, green)
+	}
+}
+
+@mixin paragraphFormats() {
+	&:after{
+		content:
+		" "
+		rendButton(true, true)
+	}
+	&[rend*="indent-left"] {
+		padding-left: oxy_concat(oxy_substring(oxy_replace(attr(rend), ".*indent-left\((.*?)chars\).*", "$2", true), 1), "em");
+	}
+	&[rend*="indent-first"]:before {
+		padding-left: oxy_concat(oxy_substring(oxy_replace(attr(rend), ".*indent-first\((.*?)chars\).*", "$2", true), 1), "em");
+		content:" "
+	}
+}
+
+
+TEI[xml\|id="event"] {
+	@include pageHeader("EREIGNIS");
+
+	listChange {
+		@include defaultMargin();
+	}
+
+	publicationStmt {
+		@include headerRowStart("Identifikatoren");
+		&:before {
+			border-left:8px solid white;
+			border-right:8px solid white;
+		}
+	}
+
+	change {
+		@include wideRowEnd("Kategorie",
+			fixedValuesCombo("@type", $values-rsw_data-changeEventType, $labels-rsw_data-changeEventType, 20)
+		);
+
+		> note {
+			@include removeRowMarginLR();
+		}
+
+		> date {
+			@include wideRowTwoButtons("insert.origDate", "Datierung", dateButton(true));
+			@include removeRowMarginLR();
+			visibility: -oxy-collapse-text;
+		}
+
+		> placeName {
+			@include wideRowTwoButtons("insert.place", "Ort",
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+				nameButton("Verweis auf einen Ort einfügen", "place")
+			);
+			@include removeRowMarginLR();
+			visibility: -oxy-collapse-text;
+		}
+	}
+
+	listBibl bibl {
+		@include biblRow("Titel: ")
+	}
+}
+
+TEI[xml\|id="reception"],
+TEI[xml\|id="literature"] {
+	term {
+		@include headerRowContent("Klassifizierung",
+			fixedValuesCombo("#text", $values-rsw_data-keyword_print, $values-rsw_data-keyword_print, 20)
+		);
+		visibility: -oxy-collapse-text;
+	}
+
+	listBibl {
+		@include removeRowMarginLR();
+		bibl {
+			@include biblRow(fixedValuesCombo("@type", $values-rsw_data-biblTypeLiterature, $labels-rsw_data-biblTypeLiterature, 14) " ")
+		}
+	}
+
+	msDesc:before {
+		content:
+		button("remove.this")
+		" EXEMPLAR"
+		$lb $charIndent
+		"   Überlieferung:                "
+		fixedValuesCombo("@rend", $values-rsw_data-msDescRend, $labels-rsw_data-msDescRend, 22)
+	}
+
+	sourceDesc {
+		@include headerRow("Bibliographische Aufnahme")
+	}
+}
+
+TEI[xml\|id="reception"] {
+	@include pageHeader("REZEPTIONSZEUGNIS")
+}
+
+TEI[xml\|id="literature"] {
+	@include pageHeader("LITERATUR")
+}
+
+
+TEI[xml\|id="corresp"],
+TEI[xml\|id="graphic"] {
+	sourceDesc {
+		@include headerRow("Quellen", button("insert.msDesc"));
+	}
+	surrogates:before{
+		content:
+		"Reproduktionen: "
+		button("insert.surrogates.image")
+		button("insert.msDesc");
+	}
+	listBibl {
+		@include removeRowMarginLR();
+	}
+	listChange{
+		@include headerRow("Entstehungsdaten");
+
+		change {
+			@include container();
+			&:before {
+				counter-increment: change 1;
+				color:green;
+				content:
+				button("insert.creation.change")
+				button("remove.this")
+				oxy_label(text, " AKTION ", color, $labelColor)
+				counter(change)
+				$lb $charIndent
+				button("insert.persName.sender")
+				button("insert.orgName.sender")
+				button("insert.persName.addressee")
+				button("insert.orgName.addressee")
+			}
+		}
+	}
+}
+
+TEI[xml\|id="corresp"] {
+	@include pageHeader("KORRESPONDENZ");
+	publicationStmt > idno {
+		@include wideRowTwoButtons("insert.rsqv-id", "Identifikator",
+			"Typ: "
+			fixedValuesCombo("@type", $valuesCorrespIdnoType, $valuesCorrespIdnoType, 7)
+			" Nummer: "
+		);
+	}
+	term {
+		@include headerRowContent("Klassifizierung", fixedValuesCombo("#text", $values-rsw_data-keyword_corresp, $values-rsw_data-keyword_corresp, 20));
+		visibility: -oxy-collapse-text;
+	}
+	body div:before {
+		display:block;
+		margin-bottom: 8px;
+		padding-bottom: 4px;
+		border-bottom: 1px solid #999;
+		font-size:$labelFontSize;
+		content:
+		"Abschnitt: "
+		fixedValuesCombo("@type", $values-rsw_data-divTypeCorresp, $labels-rsw_data-divTypeCorresp, 10)
+		button("remove.this")
+		button("insert.div.before")
+		button("insert.div.after")
+	}
+}
+
+TEI[xml\|id="graphic"] {
+	@include pageHeader("BILDMATERIAL");
+	term {
+		@include headerRowContent("Klassifizierung", fixedValuesCombo("#text", $values-rsw_data-keyword_graphic, $values-rsw_data-keyword_graphic, 20));
+		visibility: -oxy-collapse-text;
+	}
+}
+
+
+ab[xml\|id="repository"] > idno,
+TEI[xml\|id='graphic'] idno[type="RSQV"],
+TEI[xml\|id='reception'] idno[type="RSQV"],
+TEI[xml\|id="literature"] idno[type="RSQV"],
+TEI[xml\|id="event"] idno[type="RSQV"]
+{
+	@include wideRowTwoButtons ("insert.rsqv-id", "RSQV-ID")
+}
+
+
+performance {
+
+	@include pageHeader("WERK-AUFFÜHRUNG");
+
+	> desc {
+		@include headerRow("Beschreibung");
+
+		> date {
+			@include wideRowTwoButtons("insert.origDate", "Datierung", dateButton(true));
+			visibility: -oxy-collapse-text;
+			@include removeRowMarginLR();
+		}
+
+		> time {
+			@include wideRow("Dauer",
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				fixedValuesCombo("@precision", ", medium", ", ca.", 6)
+				textField("@extent", 6)
+				" Minuten"
+			);
+			@include removeRowMarginLR();
+		}
+
+		> placeName {
+			@include wideRow("Veranstaltungsort",
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+				nameButton("Verweis auf einen Veranstaltungsort einfügen", "place")
+			);
+			@include removeRowMarginLR();
+			visibility: -oxy-collapse-text;
+		}
+
+		> settlement {
+			@include wideRow("Stadt",
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+				nameButton("Verweis auf den Zielort einfügen", "place")
+			);
+			@include removeRowMarginLR();
+			visibility: -oxy-collapse-text;
+		}
+
+		> country{
+			@include removeRowMarginLR();
+		}
+
+		> persName {
+			@include wideRowTwoButtons("insert.name.person", "Person",
+				fixedValuesCombo("@role", $values-rsw_data-persNamePerformanceRole, $labels-rsw_data-persNamePerformanceRole, 18)
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				nameButton("Verweis auf eine Person einfügen", "person")
+			);
+			@include removeRowMarginLR();
+			visibility: -oxy-collapse-text;
+		}
+
+		> orgName {
+			@include headerRow("Orchester",
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				nameButton("Verweis auf eine Organisation einfügen", "org")
+				fixedValuesCombo("@extent", $values-rsw_data-orgNameOrchestraExtent, $labels-rsw_data-orgNameOrchestraExtent, 14)
+				" Stärke: "
+				textField("@quantity", 4)
+				" Musiker "
+			);
+			@include removeRowMarginLR();
+			visibility: -oxy-collapse-text;
+		}
+
+	}
+
+}
+
+
+place {
+	@include pageHeader("ORT");
+
+	> idno{
+			@include wideRowTwoButtons("insert.idnoGeoNames", "Identifikator",
+				"Typ: "
+				fixedValuesCombo("@type", $values-rsw_data-idnoPlaceType, $values-rsw_data-idnoPlaceType, 10)
+				" Nummer: "
+			);
+		}
+
+	> placeName{
+			&[type="reg"] {
+				@include wideRow("Name");
+			}
+			&[type="alt"] {
+				@include wideRow("Anderer Name");
+			}
+			&[type="toponym"] {
+				@include wideRow("Toponym");
+			}
+			&[type="local"] {
+				@include wideRow("Lokaler Name");
+			}
+		}
+
+	> region{
+			@include wideRow("Region");
+		}
+
+	> settlement{
+			@include wideRow("Stadt");
+		}
+
+	> district{
+			@include wideRow("Stadtteil");
+		}
+
+ > trait{
+ 		white-space:pre-line;
+		@include headerRow("Beschreibung");
+		@include headerRowEnd("Identifikatoren");
+	}
+
+	> location > geo {
+			@include wideRow("Koordinaten");
+	}
+}
+
+
+
+person,
+org {
+	> idno {
+		@include wideRowTwoButtons("insert.gnd-id", "Identifikator",
+			"Typ: "
+			fixedValuesCombo("@type", $valuesPersonIdnoType, $valuesPersonIdnoType, 7)
+			" Nummer: "
+		);
+	}
+	listBibl bibl {
+		@include biblRow("Titel: ")
+	}
+	> state {
+		@include wideRowTwoButtons("insert.state", "Strauss-Bezug / Charakterisierung", dateButton(false));
+		> desc {
+			&:before {
+				content: " » "
+			}
+			&:after {
+				color:$labelColor;
+				content: "«"
+			}
+		}
+	}
+}
+
+person {
+	@include pageHeader("PERSON");
+	> persName {
+		@include wideRowTwoButtons("insert.alias", "Anderer Name",
+			"Art: "
+			fixedValuesCombo("@type", $values-rsw_data-supplPersNameType, $labels-rsw_data-supplPersNameType, 15)
+			" Datierung: "
+			dateButton(false)
+			" Name: "
+		);
+		&[type="reg"] {
+			@include wideRow("Name");
+		}
+	}
+}
+
+
+org {
+	@include pageHeader("ORGANISATION");
+	> orgName {
+		@include wideRowTwoButtons("insert.alias", "Anderer Name",
+			"Art: "
+			fixedValuesCombo("@type", $values-rsw_data-supplOrgNameType, $labels-rsw_data-supplOrgNameType, 15)
+			" Datierung: "
+			dateButton(false)
+			" Name: "
+		);
+
+		&[type="reg"] {
+			@include wideRow("Name");
+		}
+	}
+	> placeName {
+		@include wideRowTwoButtons("insert.residence", "Sitz",
+			fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+			fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+			nameButton("Verweis auf den Sitz einer Organisation einfügen", "place")
+		);
+		visibility: -oxy-collapse-text;
+	}
+	> desc {
+		@include wideRow("Art der Organisation");
+	}
+
+}
+
+
+ab[xml\|id="repository"] {
+	@include pageHeader("QUELLEN-STANDORT");
+
+	> settlement{
+		@include wideRow("Stadt");
+	}
+
+	> name{
+		@include wideRow("Standort");
+	}
+}
+
+
+:root {
+	font-family: $baseFontFamily;
+	font-size: $baseFontSize;
+	line-height: $defaultLineHeight;
+	white-space:-oxy-trim-when-ws-only;
+	counter-reset: change;
+	* {
+		white-space:-oxy-trim-when-ws-only;
+	}
+}
+
+*:before, *:after {
+	font-family: $baseFontFamily;
+	font-size:$labelFontSize;
+}
+
+*:before {
+	display: inline;
+	color: $labelColor;
+}
+
+titleStmt > title {
+	display:none;
+}
+
+respStmt {
+	@include headerRow("Verantwortlich");
+	resp {
+		display:none
+	}
+	name {
+		@include wideRowTwoButtons("insert.name", "Editor",
+			fixedValuesCombo("@ref", $values-rsw_data-editorial-staff, $labels-rsw_data-editorial-staff, 15)
+		);
+		@include removeRowMarginLR();
+	}
+}
+
+editorialDecl {
+	@include headerRow("Editorische Besonderheiten dieser Übertragung");
+}
+
+persName[role="creator"] {
+	@include narrowRowTwoButtons("insert.name.sender", "Verfasser",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		nameButton("Verweis auf einen Verfasser einfügen", "person")
+	);
+	visibility:-oxy-collapse-text;
+}
+
+orgName[role="creator"] {
+	@include narrowRowTwoButtons("insert.name.sender", "Verfasser (Org.)",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		nameButton("Verweis auf einen Verfasser (Org.) einfügen", "org")
+	);
+	visibility:-oxy-collapse-text;
+}
+
+persName[role="addressee"] {
+	@include narrowRowTwoButtons("insert.name.addressee", "Adressat",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		nameButton("Verweis auf einen Adressaten einfügen", "person")
+	);
+	visibility:-oxy-collapse-text;
+}
+
+orgName[role="addressee"] {
+	@include narrowRowTwoButtons("insert.name.addressee", "Adressat (Org.)",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		nameButton("Verweis auf einen Adressaten (Org.) einfügen", "org")
+	);
+	visibility:-oxy-collapse-text;
+}
+
+placeName[role="destination"] {
+	@include narrowRowTwoButtons("insert.destPlace", "Zielort",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+		nameButton("Verweis auf den Zielort einfügen", "place")
+	);
+	visibility:-oxy-collapse-text;
+}
+
+origDate {
+	@include narrowRowTwoButtons("insert.origDate", "Datierung", dateButton(true));
+	visibility:-oxy-collapse-text;
+}
+
+origPlace {
+	visibility: -oxy-collapse-text;
+	@include narrowRowTwoButtons("insert.origPlace", "Ort",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+		nameButton("Verweis auf den Entstehungsort einfügen", "place")
+	);
+	&:after {
+		color: $labelColor;
+	}
+}
+
+msIdentifier {
+	@include headerRowStart("Standort");
+}
+
+repository {
+	visibility: -oxy-collapse-text;
+	@include wideRow("Besitzer",
+		nameButton("Verweis auf einen Quellenstandort einfügen", "repository")
+	);
+	@include removeRowMarginLR();
+}
+
+collection {
+	@include wideRow("Sammlung");
+	@include removeRowMarginLR();
+}
+
+msIdentifier idno {
+	@include wideRow("Signatur");
+	@include removeRowMarginLR();
+}
+
+physDesc {
+	@include headerRowStart("Quellenbeschreibung");
+}
+
+extent {
+	@include wideRow("Umfang");
+	@include removeRowMarginLR();
+}
+
+objectDesc {
+	display:block;
+	@include headerRowEnd("Hände", button("insert.handNote"));
+}
+
+handNote {
+	@include wideRowOneButton("HAND",
+		$lb $charIndent "Anteil:                               "
+		fixedValuesCombo("@scope", $values-rsw_data-handFeaturesScope, $labels-rsw_data-handFeaturesScope)
+		$lb $charIndent "Schreiber:                       "
+		fixedValuesCombo(
+			"@scribe",
+			oxy_concat("none, p12063, ", oxy_xpath('string-join(//rs[@type="person"]/@key | //persName/@key, ",") ')),
+			oxy_concat("\00a0, unbekannt, ", oxy_xpath('string-join((//rs[@type="person"] | //persName)/replace(string(.), ",", "\\${comma}") , ",") '))
+		)
+		oxy_button(actionID, "insert.link.text.scribe")
+	);
+	@include removeRowMarginLR();
+	line-height:.7em;
+	padding-top:8px;
+	padding-bottom: 8px;
+
+	abbr{
+		@include narrowRow("Abkürzung");
+		line-height:$defaultLineHeight;
+	}
+
+	expan{
+		@include narrowRow("Beschreibung");
+		line-height:$defaultLineHeight;
+	}
+}
+
+additions {
+	@include headerRow("Spätere Zusätze zur Quelle");
+	@include removeRowMarginLR();
+}
+
+accMat {
+	@include wideRow("Beilagen");
+	@include removeRowMarginLR();
+}
+
+surrogates{
+	@include headerRow("Reproduktionen", button("insert.surrogates.pdf"));
+	@include removeRowMarginLR();
+
+	> msDesc {
+		margin-top:8px;
+		margin-left:30px;
+	}
+
+	> ptr {
+
+		&[type="image"] {
+			@include narrowRowOneButton("Datei",
+				textField("@target", 60)
+				button("popup.fileChooser")
+				" Bl. "
+				editableCombo("@n", $valuesFolioName)
+			);
+			margin-left:10px;
+		}
+
+		&[type="pdf"] {
+			@include narrowRowOneButton("PDF",
+				textField("@target", 30)
+				button("popup.fileChooser")
+				" PDF-Seite: "
+				textField("@n", 6)
+			);
+			margin-left:10px;
+		}
+	}
+}
+
+task {
+	@include container();
+	&:before {
+		content:
+		button("insert.task")
+		button("remove.this")
+		" Aufgabe vom "
+		oxy_label(text, attr(rsw\|pwhen), color, green)
+		", Benutzer: "
+		oxy_label(text, oxy_substring(attr(rsw\|pwho), 2), color, green)
+		$lb $charIndent "Aufgabe für: "
+		fixedValuesCombo("@who", $values-rsw_data-encoding-staff, $labels-rsw_data-encoding-staff, 18)
+		$lb $charIndent "Priorität: "
+		fixedValuesCombo("@rsw:priority", $valuesTaskPriority, $valuesTaskPriority, 6)
+		$lb $charIndent "Aufgabenstellung:"
+	}
+	p {
+		padding-left:40px;
+	}
+}
+
+revisionDesc change {
+	@include container();
+	&:before {
+		content:
+		button("insert.change")
+		button("remove.this")
+		" Erledigt am "
+		oxy_label(text, attr(when), color, green)
+		", Benutzer: "
+		oxy_label(text, oxy_substring(attr(who), 2), color, green)
+		$lb $charIndent "Art der Änderung: "
+		fixedValuesCombo("@type", $values-rsw_data-revisionDescChangeType, $labels-rsw_data-revisionDescChangeType, 28)
+		$lb $charIndent "Erläuterungen:"
+	}
+	p {
+		padding-left:40px;
+	}
+}
+
+sourceDesc {
+	> p {
+		padding: 0;
+		border:0;
+		-oxy-editable: false;
+		&:after {
+			content:""
+		}
+	}
+}
+
+msDesc {
+	@include container();
+	padding-left: 8px;
+	padding-right: 8px;
+
+	&:before {
+		content:
+		button("remove.this")
+		" QUELLE"
+		$lb $charIndent
+		"   Überlieferung:                "
+		fixedValuesCombo("@rend", $values-rsw_data-msDescRend, $labels-rsw_data-msDescRend, 22)
+	}
+}
+
+taskDesc {
+	@include headerRow("[intern] Aufgaben", button("insert.task"));
+}
+
+revisionDesc {
+	@include headerRow("[intern] Erledigt", button("insert.change"));
+	@include headerRowEnd("STATUS", fixedValuesCombo("@status", $values-rsw_revisionDesc-revisionDesc-status, $labels-rsw_revisionDesc-revisionDesc-status, 20));
+}
+
+
+availability{
+	@include headerRow("Nutzungsbedingungen / Lizenzen");
+	@include headerRowEnd("Identifikatoren");
+}
+
+note[type="summary"]{
+	@include headerRow("Inhaltliche Zusammenfassung");
+}
+
+note[type="commentary"]{
+	@include headerRow("[intern] Werkbezogene Vermerke", button("insert.commentary"));
+
+	note {
+		@include container();
+		@include removeRowMarginLR();
+
+		&:before {
+			color: $labelColor;
+			content:
+			button("insert.commentary")
+			button("remove.this")
+		}
+		> rs {
+			visibility: -oxy-collapse-text;
+			&:before {
+				content:
+				" Betreffendes Werk: "
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				" "
+				nameButton("Verweis auf ein Werk einfügen", "work")
+				$lb $charIndent "Unterthema: "
+				fixedValuesCombo("@subtype", $valuesCommentarySubtype, $labelsCommentarySubtype, 17)
+				$lb $charIndent "Bemerkungen:"
+			}
+		}
+		> p {
+			padding-left:40px;
+		}
+	}
+}
+
+note[type="uncategorized"]{
+	@include headerRow("[intern] Weitere Anmerkungen (Zuordnung unklar)");
+	margin-bottom:1em;
+}
+
+note[type="discussion"]{
+	@include headerRow("[intern] Diskussion");
+}
+
+note[type="details"] {
+	@include headerRow("Freitext-Beschreibung");
+}
+
+note[type="figures"] {
+	@include headerRow("Abbildungen", button("insert.figures.figure"));
+
+	figure {
+		@include container();
+
+		&:before {
+			color:$labelColor;
+			content:
+			button("insert.figures.figure")
+			button("remove.this")
+			" ABBILDUNG "
+		}
+		&:after{
+			padding-left:32px;
+			content:
+			oxy_editor(
+			type, check,
+			edit, "@place",
+			values, "top",
+			uncheckedValues, "",
+			labels, "Auf Website als Portrait anzeigen")
+		}
+		desc {
+			display:block;
+			&:before{
+				padding-left:38px;
+				content: "Legende:  "
+			}
+		}
+	}
+	graphic {
+		display:block;
+		&:before {
+			padding-left:38px;
+			content:
+			"Datei: "
+			textField("@url", 60)
+			button("popup.fileChooser")
+		}
+	}
+}
+
+listEvent{
+	@include headerRow("Chronik", button("insert.event"));
+}
+
+event {
+	@include container();
+
+	&:before {
+		content:
+		button("insert.event")
+		button("remove.this")
+		" EREIGNIS "
+	}
+
+	p {
+		white-space:pre-line;
+		padding-left: 40px;
+		text-align:left;
+	}
+
+	> head {
+		white-space:-oxy-trim-when-ws-only;
+		display:inline-block;
+		padding:0;
+		font-size: inherit;
+		padding-left: 40px;
+		text-align:left;
+
+		&:after{
+				content: "Beschreibung:";
+				color: $labelColor;
+			}
+		& date {
+			visibility: -oxy-collapse-text;
+			display:block;
+			//background-color: white;
+			padding: 0 6px 0 0;
+			&:before {
+				content:
+				button("insert.origDate")
+				button("remove.this")
+				"Datierung: "
+				dateButton(true)
+			}
+		}
+		& placeName {
+			visibility: -oxy-collapse-text;
+			display:block;
+			//background-color: white;
+			padding: 0 6px 0 0;
+			&:before {
+				content:
+				button("insert.place")
+				button("remove.this")
+				"Ort: "
+				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+				fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+				nameButton("Verweis auf einen Ort einfügen", "place")
+			}
+		}
+	}
+}
+
+listBibl,
+note[type="listBibl"] {
+	@include headerRow("Literatur", button("insert.bibl"));
+
+	bibl {
+		&:after {
+			color: $labelColor;
+			height: 11px;
+		}
+		> rs {
+			visibility: -oxy-collapse-text;
+			&[key] {
+				color:$labelColor;
+				font-weight: bold;
+			}
+		}
+		> note {
+			white-space:-oxy-trim-when-ws-only;
+			display:block;
+			margin: 0px 40px;
+
+			&:before {
+				content: "Kommentar:"
+			}
+			&:after {
+				color: $labelColor;
+			}
+		}
+	}
+}
+
+listBibl bibl {
+	@include biblRow(fixedValuesCombo("@type", $values-rsw_data-biblTypeCorrespondence, $labels-rsw_data-biblTypeCorrespondence, 12) " ")
+}
+
+note[type="listBibl"] bibl {
+	@include biblRow("Titel: ")
+}
+
+analytic {
+	@include container();
+	&:before {
+		content: "ANGABEN ZUM AUFSATZ / ARTIKEL / ZUR REZENSION "
+		$lb $charIndent
+		button("insert.author")
+		button("insert.assistant")
+		button("insert.editor")
+		button("insert.editor-assistant")
+		button("insert.copy-editor")
+		button("insert.translator")
+	}
+	& + monogr:before {
+		content: "ANGABEN ZUM ENTHALTENDEN SAMMELWERK "
+		$lb $charIndent
+		button("insert.author")
+		button("insert.assistant")
+		button("insert.editor")
+		button("insert.editor-assistant")
+		button("insert.copy-editor")
+		button("insert.translator")
+		$lb $charIndent
+		"Ident. mit Datensatz:    "
+		textField("@sameAs", 8)
+	}
+}
+
+monogr{
+	@include container();
+	&:before {
+		content: "MONOGRAPHIE "
+		button("insert.author")
+		button("insert.assistant")
+		button("insert.editor")
+		button("insert.editor-assistant")
+		button("insert.copy-editor")
+		button("insert.translator")
+	}
+}
+
+// fade out to signal data is only a copy which should not be edited
+monogr[sameAs],
+monogr[sameAs] imprint,
+monogr[sameAs] + series {
+	background-color:$inactiveBackgroundColor;
+	color:$inactiveColor;
+}
+
+series {
+	@include container();
+	&:before {
+		content:
+		button("insert.series")
+		button("remove.this")
+		" REIHE"
+	}
+}
+
+author {
+	@include narrowRowOneButton("Autor");
+	&[role="assistant"] {
+		@include narrowRowOneButton("Mitarbeiter");
+	}
+}
+
+editor {
+	@include narrowRowOneButton("Herausgeber");
+	&[role="assistant"]:before {
+		@include narrowRowOneButton("Hrsg.-Mitarbeiter");
+	}
+	&[role="translator"]:before {
+		@include narrowRowOneButton("Übersetzer");
+	}
+	&[role="copy-editor"]:before {
+		@include narrowRowOneButton("Redakteur");
+	}
+}
+
+
+
+biblStruct {
+	@include headerRowEnd("Exemplare", button("insert.msDesc"));
+
+	title {
+		@include narrowRow("Titel");
+		&[type="short"] {
+			@include narrowRow("Titel (Kurzform)");
+		}
+		&[type="sub"] {
+			@include narrowRow("Untertitel");
+		}
+	}
+
+	edition {
+		@include narrowRow("Auflage");
+	}
+
+	idno[type="isbn"] {
+		@include narrowRow("ISBN");
+	}
+
+	idno[type="url"] {
+		@include wideRow("URL");
+		@include removeRowMarginLR();
+	}
+
+	date {
+		@include narrowRowTwoButtons("insert.origDate", "Datierung",
+			fixedValuesCombo("@type", $values-rsw_imprint-imprint-date-type, $labels-rsw_imprint-imprint-date-type, 6)
+			" "
+			dateButton(true)
+		);
+		visibility: -oxy-collapse-text;
+	}
+
+	note {
+		@include narrowRow("Anmerkungen");
+	}
+}
+
+textLang {
+	@include narrowRow("Sprache", editableCombo("#text", $valuesTextLang, 20));
+	visibility: -oxy-collapse-text;
+}
+
+biblScope {
+	&[unit="vol"] {
+		@include narrowRow("Band");
+	}
+	&[unit="date"] {
+		@include narrowRow("Jahrgang");
+	}
+	&[unit="issue"] {
+		@include narrowRow("Heft / Teilband");
+	}
+	&[unit="pp"], &[unit="col"] {
+		@include narrowRow("Seitenangabe");
+		background-color:white;
+		color:black;
+	}
+}
+
+publisher {
+	@include narrowRow("Verlag");
+}
+
+pubPlace {
+	@include narrowRow("Verlagsort");
+}
+
+castList {
+	@include headerRow("Besetzung");
+	@include removeRowMarginLR();
+}
+
+castItem {
+	@include container();
+	&:before {
+		content:
+		button("insert.castItem")
+		button("remove.this")
+		" BESETZUNG"
+	}
+}
+
+role {
+	@include narrowRow("Rolle")
+}
+
+actor persName {
+	@include narrowRow("Person",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		nameButton("Verweis auf eine Person einfügen", "person")
+	);
+	visibility: -oxy-collapse-text;
+}
+
+country{
+	@include wideRow("Land",
+		"Kürzel: " editableCombo("@key", $valuesCountryKey, 6) " Name: "
+	);
+}
+
+faith {
+	@include wideRowTwoButtons("insert.faith", "Glaube",
+		dateButton(false)
+		editableCombo("#text", $valuesFaith, 15)
+	);
+	visibility: -oxy-collapse-text;
+}
+
+sex {
+	@include wideRow("Geschlecht", fixedValuesCombo("@value", $values-rsw_sex-sex-value, $labels-rsw_sex-sex-value, 10));
+}
+
+birth,
+death {
+	date {
+		visibility:-oxy-collapse-text;
+		display:inline-block;
+		&:before {
+			content:
+			"Datierung: "
+			dateButton(true)
+		}
+	}
+	placeName {
+		visibility: -oxy-collapse-text;
+		&:before {
+			content:
+			" Ort: "
+			fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+			fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+			nameButton("Verweis auf einen Ort einfügen", "place")
+		}
+	}
+}
+birth {
+	@include wideRow("Geboren");
+}
+death {
+	@include wideRow("Gestorben");
+}
+
+residence {
+	@include wideRowTwoButtons("insert.residence", "Wirkungsort",
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
+		fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
+		nameButton("Verweis auf einen Wirkungsort einfügen", "place")
+	);
+	visibility:-oxy-collapse-text;
+}
+
+occupation {
+	@include wideRowTwoButtons("insert.occupation", "Beruf / Beschäftigung");
+}
+
+affiliation{
+	@include wideRowTwoButtons("insert.affiliation", "Zugehörigkeit");
+	date {
+		visibility:-oxy-collapse-text;
+		&:before {
+			content:
+			dateButton(true)
+		}
+	}
+	orgName {
+		visibility:-oxy-collapse-text;
+		&:before {
+			content:
+			" zur Org. / Gruppe "
+			nameButton("Verweis auf eine Organisation einfügen", "org")
+		}
+	}
+	gloss {
+		&:before {
+			content: " (Ggf. Rolle:) » "
+		}
+		&:after {
+			color:$labelColor;
+			content: "«"
+		}
+	}
+}
+
+
+/* ************************* BODY TEXT ************************* */
+
+body {
+	font-family:$bodyFontFamily;
+	float: left;
+	font-size: $bodyFontSize;
+	margin-left:$defaultMarginLeft;
+	margin-right:$defaultMarginRight;
+	white-space:-oxy-trim-when-ws-only;
+
+	* {
+		white-space: pre;
+	}
+
+	hi {
+		&[rend="latin"] {
+			font-family:$bodyFontFamilyItalic;
+		}
+		&[rend="italic"] {
+			font-family:$bodyFontFamilyItalic;
+		}
+	}
+
+	p {
+		@include paragraphFormats();
+	}
+	date {
+		color: green;
+		&:after {
+			color: $bodyMetaTextColor;
+			content:
+			dateButton(false)
+		}
+	}
+	graphic:before {
+		content:
+		"(Bild): "
+		button("popup.fileChooser")
+		textField("@url", 40)
+		" H: "
+		textField("@height", 5)
+		" B: "
+		textField("@width", 5)
+	}
+	div {
+		margin-bottom: 12px;
+		padding: 4px 12px 12px;
+		border: 1px solid $bodyMetaTextColor;
+		display:block;
+	}
+	head {
+		white-space:pre-line;
+		display:block;
+		text-align: center;
+		font-size: 1.15em;
+		padding: 1em 0 0.5em;
+		border:0;
+		margin:0;
+		&[type="main"] {
+			font-size: $bodyMainHeadFontSize;
+		}
+		&[type="sub"] {
+			font-size: $bodySubHeadFontSize;
+		}
+
+	}
+	head + * {
+		padding-top: 2em
+	}
+	head + head {
+		padding-top: 0
+	}
+	choice {
+		&:before {
+			font-style: normal;
+			content:"["
+		}
+		&:after {
+			font-style: normal;
+			color: $bodyMetaTextColor;
+			content:"]"
+		}
+		sic {
+			text-decoration:line-through
+		}
+	}
+	placeName {
+		color:green;
+	}
+}
+
+text {
+	background-color: white;
+	padding: 2em 0;
+	white-space:-oxy-trim-when-ws-only;
+
+	&:before {
+		content: "";
+		margin: 0;
+		display: inline;
+	}
+	note[resp] {
+		color: $bodyMetaTextColor;
+		p {
+			color: #000
+		}
+	}
+}
+
+xi\|include{
+	background-color:#fe0000!important;
+
+	&:before {
+		display:none!important;
+	}
+	&:after {
+		padding-bottom:10px!important;
+		padding-left:14px!important;
+		margin:0!important;
+		content:
+		fixedValuesCombo("@xpointer", $valuesXPointer, $labelsXPointer, 13)!important;
+	}
+}
+
+oxy\|reference {
+	padding: 8px!important;
+	background-color:#feeeee!important;
+}
+
+notatedMusic {
+	visibility: -oxy-collapse-text;
+		&:before {
+		content: "[Musiknotation - zum Bearbeiten in die Quellcodeansicht wechseln]"
+	}
+	& note:before, & note:after {
+		content:""!important;
+	}
+}
+
+p note:after,
+body note:after {
+	content: "]";
+	color: $bodyMetaTextColor
+}
+p note[resp]:before,
+body note[resp]:before {
+	content: " [";
+	color: $bodyMetaTextColor
+}
+p note:before,
+body note:before {
+	content: " (Originalanmerkung:) [";
+	color: $bodyMetaTextColor
+}
+note[place="foot"][resp]:before {
+	content: " ꜜ[";
+	color: $bodyMetaTextColor
+}
+
+note[place="foot"]:before {
+	content: " (Originalanmerkung:) ꜜ[";
+	color: $bodyMetaTextColor
+}
+
+note[type="temp-content"]:before {
+	content: " (Vorläufig:) [";
+	color: $bodyMetaTextColor
+}
+
+note[type="evidence"][resp]:before {
+	content: " (i) [";
+	color: $bodyMetaTextColor
+}
+
+sp {
+	white-space:-oxy-trim-when-ws-only;
+}
+
+div {
+	white-space:-oxy-trim-when-ws-only;
+}
+
+ab {
+	white-space:-oxy-trim-when-ws-only;
+}
+
+
+p {
+	white-space:pre-line;
+
+	&:after {
+		color: $bodyMetaTextColor;
+		content: " ¶ "
+	}
+	table:before {
+		content: "[Diese Tabelle schließt im Browser direkt an die vorhergegende Zeile an:]"
+	}
+	list[type="simple"]:before {
+		content: "[Diese Aufzählung schließt im Browser direkt an die vorhergegende Zeile an:]"
+	}
+	quote {
+		padding: 0;
+		font-size: 0.85em
+	}
+	placeName {
+		color:green;
+	}
+	table {
+		padding-left: 20px;
+		border-left: 8px solid #ddd;
+	}
+	list[type="simple"] {
+		display: inline-block;
+		padding-left: 20px;
+		border-left: 8px solid #ddd;
+	}
+}
+
+note p {
+	white-space:pre-line
+}
+
+lg {
+	white-space:-oxy-trim-when-ws-only;
+}
+
+l {
+	display:block;
+	&:after {
+		color: $bodyMetaTextColor;
+		content: "||"
+	}
+}
+
+addrLine:after {
+	color: $bodyMetaTextColor;
+	@include paragraphFormats();
+//	content: " ||"
+}
+
+dateline:before {
+	content:
+	"(Datumszeile:) "
+	fixedValuesCombo("@rend", $valuesExtendedAlignment, $labelsExtendedAlignment)
+	" "
+}
+
+byline:before {
+	content:
+	"(Autor:) "
+	fixedValuesCombo("@rend", $valuesAlignment, $labelsAlignment)
+	" ";
+}
+
+seg{
+	display: block;
+	padding-left: 20px;
+	border-left: 8px solid #ddd;
+	margin-bottom: 0.5em;
+
+	&:before {
+		content:
+		"(Textsegment:) "
+		fixedValuesCombo("@rend", $valuesAlignment, $labelsAlignment)
+		"\a";
+	}
+
+	&[type] {
+		background-color: #f6fc78;
+		display:inline;
+		padding-left:inherit;
+		border-left:inherit;
+		margin-bottom:inherit;
+		&:before {
+			content: ""
+		}
+	}
+	&[type="signed"] {
+		background-color: orange
+	}
+	&[type="quoteref"]:after {
+		color:$bodyMetaTextColor;
+		background-color: #fd6666;
+		content:
+		" (ID:) "
+		textField("@xml:id", 10)
+	}
+}
+
+
+epigraph {
+	white-space:-oxy-trim-when-ws-only;
+	display: block;
+	padding-left: 20px;
+	border-left: 8px solid #ddd;
+	margin-bottom: 0.5em;
+
+	&:before {
+		content: "(Epigraph:) "
+		fixedValuesCombo("@rend", $valuesAlignment, $labelsAlignment)
+		"\a";
+	}
+	quote {
+		white-space:-oxy-trim-when-ws-only;
+		padding:inherit;
+		font-size: 0.85em
+	}
+}
+
+quote {
+	white-space:pre-line;
+	padding: 0.5em 2em;
+	font-size: 0.85em
+}
+
+cit {
+	white-space:-oxy-trim-when-ws-only;
+
+	bibl {
+		padding:inherit;
+		font-size: 0.85em
+	}
+}
+
+title {
+	white-space:pre-line;
+}
+
+p, title, dateline, byline, addrLine {
+	display: block;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+dateline {
+	margin-bottom: 0.5em;
+}
+
+dateline[rend="align(right)"],
+byline[rend="align(right)"] {
+	text-align:right;
+}
+dateline[rend="align(center)"],
+byline[rend="align(center)"] {
+	text-align: center;
+}
+
+figure {
+	display:block;
+	&:after {
+		content: fixedValuesCombo("@rend", $valuesFigureRend, $labelsFigureRend)
+	}
+}
+
+item {
+	display: block;
+}
+
+table {
+	white-space:-oxy-trim-when-ws-only;
+	display: table;
+	> head {
+		display: block;
+		font-weight: bold;
+		font-size: 1em;
+		padding: 0;
+		text-align: left;
+		background-color: #999;
+	}
+}
+
+row {
+	white-space:-oxy-trim-when-ws-only;
+	display: table-row;
+	&[role="label"] {
+		font-weight: bold;
+	}
+}
+
+cell {
+	display: table-cell;
+	padding: 0 0.3em 0 0;
+	text-align: attr(align);
+	vertical-align: attr(valign);
+	border: 1px dotted #000
+}
+
+anchor {
+	&[rend="right"]:before {
+		color: $bodyMetaTextColor;
+		content: "[rechts:] "
+	}
+	&[rend="left"]:before {
+		color: $bodyMetaTextColor;
+		content: "[links:] "
+	}
+	&[rend="center"]:before {
+		color: $bodyMetaTextColor;
+		content: "[mittig:] "
+	}
+}
+
+handShift {
+	&:after {
+		color:$bodyMetaTextColor;
+		content:
+		"[Hand:"
+		handAttributeCombo("@new")
+		", Aktion:"
+		changeRefCombo()
+		":] ";
+	}
+	&[new="#pre-printed"]:after{
+		color:$bodyMetaTextColor;
+		content: "[gedr.:] "
+	}
+}
+
+milestone {
+	&[rend='horizontal-rule'] {
+		left:0;right:0;
+		display:block;
+		top: -3px;
+		border-bottom:1px solid black;
+		width:100%;
+		line-height:0.5em;
+		margin-bottom:0.5em;
+	}
+	&[rend*='horizontal-rule width']:before {
+		content: '(mittig)'
+	}
+	&[rend*='horizontal-rule width'] {
+		display:block;
+		top: -3px;
+		border-bottom:1px solid black;
+		width:oxy_substring(attr(rend), oxy_add(1, oxy_indexof(attr(rend), '('), integer), oxy_indexof(attr(rend), ')'));
+		line-height:0.5em;
+		margin-bottom:0.5em;
+	}
+}
+
+del {
+	display: inline;
+	text-decoration: line-through;
+
+	&:before {
+		content:
+		fixedValuesCombo("@rend", $values-rsw_del-del-rend, $labels-rsw_del-del-rend)
+		"{"
+	}
+	&[hand]:before {
+		content:
+		handAttributeCombo("@hand")
+		changeRefCombo()
+		fixedValuesCombo("@rend", $values-rsw_del-del-rend, $labels-rsw_del-del-rend)
+		"{"
+	}
+	&:after {
+	color: $bodyMetaTextColor;
+	content:
+	"}"
+	}
+}
+
+unclear {
+	&:after {
+		color: $bodyMetaTextColor;
+		content: " [?]"
+	}
+	&[cert="low"] {
+		background-color: #bbb;
+	}
+	&[cert="low"]:after {
+		content: ""
+	}
+	&[reason="encoding-unclear"] {
+		color: red
+	}
+	&[reason="encoding-unclear"]:before {
+		content: "[";
+		color: $bodyMetaTextColor
+	}
+	&[reason="encoding-unclear"]:after {
+		content: "] ";
+		color: $bodyMetaTextColor
+	}
+}
+
+sic {
+	display: inline;
+
+	&:after {
+		color: $bodyMetaTextColor;
+		content: " [sic]"
+	}
+	&:empty:after {
+		color: red;
+	}
+}
+
+
+corr {
+	display: inline;
+
+	&:before {
+		content: " ["
+	}
+	&:after  {
+		color: $bodyMetaTextColor;
+		text-decoration:none;
+		font-style: normal;
+		content: "] [Hg.]"
+	}
+}
+
+surplus {
+	display: inline;
+	text-decoration:line-through;
+
+	&:before {
+		font-style: normal;
+		content:"["
+	}
+	&:after {
+		color: $bodyMetaTextColor;
+		text-decoration:none;
+		font-style: normal;
+		content: "] [Hg.]"
+	}
+}
+
+subst {
+	&:before {
+		font-style: normal;
+		content:"["
+	}
+	&[hand]:before {
+		content:
+		"["
+		handAttributeCombo("@hand")
+		changeRefCombo()
+	}
+	&:after {
+		font-style: normal;
+		color: $bodyMetaTextColor;
+		content:"]"
+	}
+}
+
+add {
+	&:before {
+		content:
+		fixedValuesCombo("@place", $values-rsw_add-add-place, $labels-rsw_add-add-place)
+		"{"
+	}
+	&[hand]:before {
+		content:
+		handAttributeCombo("@hand")
+		changeRefCombo()
+		fixedValuesCombo("@place", $values-rsw_add-add-place, $labels-rsw_add-add-place)
+		"{"
+	}
+	&:after {
+		color:$bodyMetaTextColor;
+		content:"}"
+	}
+}
+
+mod {
+	text-decoration:underline;
+	&:before {
+		text-decoration:none;
+		content:
+		"[Unterstr.: "
+		handAttributeCombo("@hand")
+		changeRefCombo()
+		"{"
+	}
+	&:after {
+		color:$bodyMetaTextColor;
+		content:"}]"
+	}
+}
+
+pb {
+	color: $bodyMetaTextColor;
+	text-decoration: none;
+	font-size: 0.7em;
+
+	&:before {
+		font-style: normal;
+		color: $bodyMetaTextColor;
+		text-decoration: none;
+		content: " "
+		editableCombo("@n", $valuesFolioName)
+	}
+	&:after {
+		color: $bodyMetaTextColor;
+		content: " ";
+		background-color:inherit;
+		padding-right:0.1em;
+	}
+}
+
+respons:before {
+	content: attr(rsw\|when) "_" oxy_substring(attr(resp), 2)
+}
+
+supplied {
+	color: $bodyMetaTextColor;
+
+	&:before {
+		content: "[";
+		color: $bodyMetaTextColor
+	}
+	&:after {
+		content: "]";
+		color: $bodyMetaTextColor
+	}
+	&[reason="loss"]:before {
+		content: "[†";
+		color: $bodyMetaTextColor
+	}
+	&[reason="loss"]:after {
+		content: "†]";
+		color: $bodyMetaTextColor
+	}
+}
+
+gap {
+	&:after {
+		display: inline;
+		color: $bodyMetaTextColor;
+		content: "[...]"
+	}
+	&[reason="loss"]:after {
+		content: "[...†...]"
+	}
+	&[reason="irrelevant"]:after {
+		content: "[...₰...]"
+	}
+	&[reason="inaccessible"]:after {
+		content: "[...?...]"
+	}
+}
+
+space {
+	&[dim="horizontal"] {
+		padding-right: oxy_concat(attr(extent), "em")
+	}
+
+	&[dim="vertical"] {
+		display:inline-block;
+		margin:0;padding:0;
+		padding-top: oxy_subtract(attr(extent), 1, 'em')
+	}
+}
+
+
+hi {
+	&[rend="bold"] {
+		font-weight: bold
+	}
+	&[rend="latin"] {
+		font-style: italic;
+		color: inherit;
+	}
+	&[rend="italic"] {
+		font-style: italic;
+		color: inherit;
+		&:after {
+			font-style:normal;
+			font-size: 0.7em;
+			vertical-align: text-top;
+			content: "[k]";
+			color: $bodyMetaTextColor
+		}
+	}
+	&[rend="spaced"] {
+		color: #333;
+		&:after {
+			font-size: 0.7em;
+			vertical-align: text-top;
+			content: "[GESP]";
+			color: $bodyMetaTextColor
+		}
+	}
+	&[rend="uppercase"] {
+		text-transform: uppercase
+	}
+	&[rend="smallcaps"] {
+		color: #333;
+		&:after {
+			font-size: 0.7em;
+			vertical-align: text-top;
+			content: "[KAP]";
+			color: $bodyMetaTextColor
+		}
+	}
+	&[rend="sup"] {
+		font-size: 0.7em;
+		vertical-align: text-top;
+	}
+	&[rend="sub"] {
+		font-size: 0.7em;
+		vertical-align: text-bottom;
+	}
+	&[rend="small"] {
+		font-size: 0.7em
+	}
+	&[rend="big"] {
+		font-size: 1.2em
+	}
+	&[rend="underline"] {
+		border-bottom: 1px solid;
+		&[rsw\|hand="h0"] {
+			border-bottom: 2px solid #000;
+			text-decoration: none
+		}
+		&[rsw\|hand="h0-pencil"] {
+			border-bottom: 2px solid $bodyMetaTextColor;
+			text-decoration: none
+		}
+		&[rsw\|hand="h0-blue"] {
+			border-bottom: 2px solid blue;
+			text-decoration: none
+		}
+		&[rsw\|hand="h0-red"] {
+			border-bottom: 2px solid red;
+			text-decoration: none
+		}
+	}
+	&[rend="2-underline"] {
+		border-bottom: 1px solid;
+		text-decoration: underline;
+		&[rsw\|hand="h0"] {
+			border-bottom: 6px double #000;
+			text-decoration: none
+		}
+		&[rsw\|hand="h0-blue"] {
+			border-bottom: 6px double blue;
+			text-decoration: none
+		}
+		&[rsw\|hand="h0-red"] {
+			border-bottom: 6px double red;
+			text-decoration: none
+		}
+		&[rsw\|hand="h0-pencil"] {
+			border-bottom: 6px double $bodyMetaTextColor;
+			text-decoration: none
+		}
+	}
+	&[rend="3-underline"] {
+		border-bottom: 3px double;
+		line-height: 1.05em;
+		text-decoration: underline
+	}
+}
+
+pc {
+	background-color: lime;
+}
+
+lb {
+	&:before {
+		font-style: normal;
+		color: $bodyMetaTextColor;
+		content: "|"
+	}
+	&[type="essential"]:before {
+		content: "| (!)"
+	}
+	&:after {
+		content: '\a'
+	}
+}
+
+ornament {
+	background-color: inherit;
+	color: black;
+	border: 0;
+	border-bottom: 1px solid black;
+	display: block;
+}
+
+rs {
+	color: #2B5877;
+	&:after {
+		color: $bodyMetaTextColor;
+	}
+}
+
+rs[type="lit"]:after {
+	font-weight: normal;
+	content:
+	" [Seite: "
+	textField("@rsw:seite", 6)
+	" PDF-Seite: "
+	textField("@rsw:seitepdf", 6)
+	"]"
+}
+
+opener {
+	white-space:-oxy-trim-when-ws-only;
+	display:block;
+	background-color: $bodyOpenerBackgroundColor;
+	margin-bottom: 1em;
+	&:before {
+		content:"(Eröffnungsteil:)\a"
+	}
+}
+
+closer {
+	white-space:-oxy-trim-when-ws-only;
+	display:block;
+	background-color: $bodyCloserBackgroundColor;
+	margin-top: 1em;
+	&:before {
+		content:"(Schlussteil:)\a"
+	}
+}
+
+postscript {
+	white-space:-oxy-trim-when-ws-only;
+	display:block;
+	background-color:lime;
+	margin-top: 1em;
+	&:before {
+		content:"(Postscriptum:)"
+	}
+}
+
+address {
+	background-color: $bodyAddressBackgroundColor;
+	&:before {
+		content:"(Adressangabe:)"
+	}
+}
+
+salute {
+	@include paragraphFormats();
+		background-color: $bodySaluteBackgroundColor
+}
+
+signed {
+	@include paragraphFormats();
+	background-color: orange;
+}

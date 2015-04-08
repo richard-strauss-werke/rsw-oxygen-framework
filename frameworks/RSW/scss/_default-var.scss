@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+
+/// override theses variables in a new file named _custom-var.scss in this directory
+
+
+/// The query path used in the "name button" inline editor component's search dialog
+$queryPath:"http://path/to/service";
+
+
+$baseFontSize:13px;
+$baseFontFamily:arial, helvetica, sans-serif;
+
+$bodyFontFamily:"Libertine", serif;
+$bodyFontFamilyItalic:"Libertine-italic", serif;
+$bodyFontSize: 15px;
+$bodyFontFamilyItalic:"Libertine-italic";
+
+$bodyMainHeadFontSize:1.3em;
+$bodySubHeadFontSize:1.15em;
+$bodyMetaTextColor:#666;
+$bodyOpenerBackgroundColor:#F2F5A9;
+$bodyCloserBackgroundColor:#F2F5A9;
+$bodyAddressBackgroundColor:#F2F5A9;
+$bodySaluteBackgroundColor:#f6fc78;
+
+$lb:"\a";
+$charIndent:"             ";
+
+$labelWidth:7.8em;
+$labelWidthButtonRow:8em;
+
+$labelColor:#666;
+$labelFontSize:.9em;
+
+$defaultBorderColor:#ddd;
+$defaultBorderWidth:1px;
+
+
+$defaultMarginTop:4px;
+$defaultMarginRight:8px;
+$defaultMarginBottom:4px;
+$defaultMarginLeft:8px;
+
+$defaultLineHeight:1.4em;
+
+$containerMarginTop:4px;
+$containerMarginBottom:4px;
+$containerPaddingTop:$defaultMarginTop; 
+$containerPaddingRight:$defaultMarginRight;
+$containerPaddingBottom:$defaultMarginBottom;
+$containerPaddingLeft:$defaultMarginLeft;
+
+$wideRowLineHeight:3em;
+$wideRowMinWidth:300px;
+$wideRowPaddingRight:8px;
+
+$wideRowEndLineHeight:$defaultLineHeight;
+$wideRowEndPaddingTop:1em;
+$wideRowEndPaddingBottom:1em;
+$wideRowEndPaddingLeft:40px;
+
+$headerRowBackgroundColor: $defaultBorderColor;
+$headerRowFontWeight:bold;
+$headerRowMarginTop: 12px;
+$headerRowMarginBottom: 6px;
+$headerRowPaddingTop:$defaultMarginTop; 
+$headerRowPaddingRight:$defaultMarginRight;
+$headerRowPaddingBottom:$defaultMarginBottom;
+$headerRowPaddingLeft:$defaultMarginLeft;
+
+$narrowRowPaddingLeft:38px;
+$narrowOneButtonRowPaddingLeft:18px;
+$narrowTwoButtonRowPaddingLeft:0px;
+
+$wideRowPaddingLeft:48px;
+$wideOneButtonRowPaddingLeft:10px;
+$wideTwoButtonRowPaddingLeft:10px;
+
+
+$pageTitleFontSize:30px;
+
+$pageTitleMarginTop:40px;
+$pageTitleMarginRight:$defaultMarginRight;
+$pageTitleMarginBottom:8px;
+$pageTitleMarginLeft:16px;
+
+$inactiveBackgroundColor:#eee;
+$inactiveColor:$labelColor;
+

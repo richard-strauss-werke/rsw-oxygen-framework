@@ -1,0 +1,361 @@
+@charset "UTF-8";
+
+
+
+/// Creates a UI button, to be used in the "content" section of a CSS rule
+/// @parameter {string} $actionID - the ID of the author action to be invoked when the button is pressed
+/// @return the button
+@function button($actionID){
+   @return oxy_editor(type, button, actionID, $actionID);
+}
+
+/// Creates a button opening a date attribute editor popup, to be used in the "content" section of a CSS rule
+/// @parameter {boolean} $editText - indicates if the text content of the element should be editable in the popup
+/// @return the button
+@function dateButton($editText){
+   @return oxy_editor(
+    rendererClassName, "com.aerhard.oxygen.framework.tei.button.DateButton",
+    swingEditorClassName, "com.aerhard.oxygen.framework.tei.button.DateButton",
+    editText, $editText
+	);
+}
+
+/// Creates a button opening a rend attribute editor popup, to be used in the "content" section of a CSS rule
+/// @parameter {boolean} $firstLineIndent - indicates if the first line indent should be editable
+/// @parameter {boolean} $padding - indicates if text padding should be editable
+/// @return the button
+@function rendButton($firstLineIndent, $padding){
+	@return oxy_editor(
+		rendererClassName, "com.aerhard.oxygen.framework.inplace.RendButton",
+		swingEditorClassName, "com.aerhard.oxygen.framework.inplace.RendButton",
+		firstLineIndent, $firstLineIndent,
+		padding, $padding
+	);
+}
+
+/// Creates a button opening a name reference finder popup, to be used in the "content" section of a CSS rule
+/// namespace and edit properties are set to "http://www.tei-c.org/ns/1.0" / "key"
+/// @parameter {string} $title - the title of the popup window
+/// @parameter {string} $category - the search scope category
+/// @return the button
+@function nameButton($title, $category){
+   @return oxy_editor(
+    rendererClassName, "com.aerhard.oxygen.framework.inplace.NameButton",
+    swingEditorClassName, "com.aerhard.oxygen.framework.inplace.NameButton",
+    title, $title,
+    ns, "http://www.tei-c.org/ns/1.0",
+    edit, "key",
+    url, "#{$queryPath}?cat=#{$category}&fulltext="
+	);
+}
+
+/// Creates a button opening a name reference finder popup, to be used in the "content" section of a CSS rule
+/// namespace and edit properties are set to "http://www.music-encoding.org/ns/mei" / "dbkey"
+/// @parameter {string} $title - the title of the popup window
+/// @parameter {string} $category - the search scope category
+/// @return the button
+@function meiNameButton($title, $category){
+   @return oxy_editor(
+    rendererClassName, "com.aerhard.oxygen.framework.inplace.NameButton",
+    swingEditorClassName, "com.aerhard.oxygen.framework.inplace.NameButton",
+    title, $title,
+    ns, "http://www.music-encoding.org/ns/mei",
+    edit, "dbkey",
+    url, "#{$queryPath}?cat=#{$category}&fulltext="
+	);
+}
+
+/// Creates a UI label, to be used in the "content" section of a CSS rule for rows without buttons
+/// @parameter {string} $text - the text of the label
+/// @return the label
+@function _label($text){
+  @return oxy_label(text, "#{$text}: ", width, $labelWidth, color, $labelColor);
+}
+
+/// Creates a UI label, to be used in the "content" section of a CSS rule for rows with buttons
+/// @parameter {string} $text - the text of the label
+/// @return the label
+@function _buttonRowLabel($text){
+  @return oxy_label(text, " #{$text}: ", width, $labelWidthButtonRow, color, $labelColor);
+}
+
+/// Creates a combo box with fixed values, to be used in the "content" section of a CSS rule
+/// @parameter {string} $edit - the node to edit, e.g. "#text", "@rend"
+/// @parameter {string} $values - a comma separated list of the combo box values
+/// @parameter {string} $labels - a comma separated list of the labels corresponding to the combo box values
+/// @parameter {string} $columns - the number of columns (optional) 
+/// @return the combo box
+@function fixedValuesCombo($edit, $values, $labels, $columns:""){
+	@if $columns != "" {
+    @return oxy_editor(
+		type, combo,
+		edit, $edit,
+		editable, false,
+		columns, $columns,
+		values, $values,
+		labels, $labels);
+  }
+	@return oxy_editor(
+	type, combo,
+	edit, $edit,
+	editable, false,
+	values, $values,
+	labels, $labels);
+}
+
+/// Creates an editable combo box, to be used in the "content" section of a CSS rule
+/// @parameter {string} $edit - the node to edit, e.g. "#text", "@rend"
+/// @parameter {string} $values - a comma separated list of the combo box values
+/// @parameter {string} $columns - the number of columns (optional) 
+/// @return the combo box
+@function editableCombo($edit, $values, $columns:""){
+	@if $columns != "" {
+    @return oxy_editor(
+		type, combo,
+		edit, $edit,
+		editable, true,
+		columns, $columns,
+		values, $values);
+  }
+	@return oxy_editor(
+	type, combo,
+	edit, $edit,
+	editable, true,
+	values, $values);
+}
+
+/// Creates an text field, to be used in the "content" section of a CSS rule
+/// @parameter {string} $edit - the node to edit, e.g. "#text", "@rend"
+/// @parameter {string} $columns - the number of columns 
+/// @return the text field
+@function textField($edit, $columns){
+	@return oxy_editor(
+	type, text,
+	edit, $edit,
+	columns, $columns);
+}
+
+/// Sets the margin to the default values
+@mixin defaultMargin() {
+	margin: $defaultMarginTop $defaultMarginRight $defaultMarginBottom $defaultMarginLeft;
+};
+
+/// Provides rules to nullify right and left margin
+@mixin removeRowMarginLR() {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/// Adds a page header
+/// @parameter {string} $text - the header text
+@mixin pageHeader($text){
+	&:before {
+   display:block;
+   margin: $pageTitleMarginTop $pageTitleMarginRight $pageTitleMarginBottom $pageTitleMarginLeft;
+   font-size: $pageTitleFontSize;
+   content: $text;
+	}
+}
+
+/// Provides formatting of a header row
+@mixin _headerRowFormat() {
+	display:block;
+	font-weight:$headerRowFontWeight;
+  background-color:$headerRowBackgroundColor!important;
+  color: $labelColor!important;
+	margin-top: $headerRowMarginTop;
+	margin-bottom: $headerRowMarginBottom;
+	padding: $headerRowPaddingTop $headerRowPaddingRight $headerRowPaddingBottom $headerRowPaddingLeft;
+};
+
+/// Provides titled row formatting
+/// @parameter {string} $title - the header title
+/// @parameter {object} $additionalContent - any additional content to be added inline after the header title
+@mixin headerRow($title, $additionalContent:"") {
+	@include defaultMargin();
+   &:before {
+		@include _headerRowFormat();
+    @if $additionalContent != "" {
+    	content: "#{$title}: " $additionalContent;
+    } @else {
+    	content: "#{$title}: ";
+    }
+   }
+}
+
+/// Provides header row formatting and adds content in :before 
+/// @parameter {string} $title - the header title
+/// @parameter {object} $additionalContent - any additional content to be added inline after the header title
+@mixin headerRowStart($title, $additionalContent:"") {
+	&:before {
+		@include _headerRowFormat();
+		content:
+		$title ":" $additionalContent
+	}
+}
+
+/// Provides header row formatting and adds content to the node to which this rule is applied
+/// @parameter {string} $title - the header title
+/// @parameter {object} $additionalContent - any additional content to be added inline after the header title
+@mixin headerRowContent($title, $additionalContent:"") {
+	@include defaultMargin();
+	font-size:$labelFontSize;
+	@include _headerRowFormat();
+  @if $additionalContent != "" {
+    content: "#{$title}: " $additionalContent;
+  } @else {
+    content: "#{$title}: ";
+  }
+}
+
+/// Provides header row formatting and adds content in :after 
+/// @parameter {string} $title - the header title
+/// @parameter {object} $additionalContent - any additional content to be added inline after the header title
+@mixin headerRowEnd ($title, $additionalContent:"") {
+	@if $additionalContent != "" {
+  	&:after {
+			@include _headerRowFormat();
+			content: "#{$title}: " $additionalContent;
+		}
+  } @else {
+  	&:after {
+			@include _headerRowFormat();
+			content: "#{$title}: ";
+		}
+  }
+};
+
+/// Provides formatting of a bordered container
+@mixin container() {
+	display:block;
+	border: $defaultBorderWidth solid $defaultBorderColor;
+	margin-top:$containerMarginTop;
+	margin-bottom:$containerMarginBottom;
+	padding: $containerPaddingTop $containerPaddingRight $containerPaddingBottom $containerPaddingLeft;
+}
+
+/// Provides formatting of a plain bordered row without excessive padding, with extra left padding
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin narrowRow($label, $additionalContent:"") {
+	display: block;
+	padding-left:$narrowRowPaddingLeft;
+	&:before {
+		color: $labelColor;
+		content:
+		_label($label)
+		$additionalContent
+	}
+}
+
+/// Provides formatting of a plain bordered row without excessive padding, with extra left padding;
+/// a "remove" button is added before the row label
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin narrowRowOneButton($label, $additionalContent:"") {
+	display: block;
+	padding-left:$narrowOneButtonRowPaddingLeft;
+	&:before {
+		color: $labelColor;
+		content:
+		button("remove.this")
+		_buttonRowLabel($label)
+		$additionalContent
+	}
+}
+
+/// Provides formatting of a plain bordered row without excessive padding, with extra left padding;
+/// "add" and "remove" buttons are added before the label
+/// @parameter {string} $actionID - the ID of the author action to be invoked by pressing the add button
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin narrowRowTwoButtons($actionID, $label, $additionalContent:"") {
+	display: block;
+	padding-left:$narrowTwoButtonRowPaddingLeft;
+	&:before {
+		color: $labelColor;
+		content:
+		button($actionID)
+		button("remove.this")
+		_buttonRowLabel($label)
+		$additionalContent
+	}
+}
+
+/// Provides wide row formatting
+@mixin _wideRowFormat(){
+	@include defaultMargin();
+	display: block;
+	padding-right: $wideRowPaddingRight;
+	min-width: $wideRowMinWidth;
+	border: $defaultBorderWidth solid $defaultBorderColor;
+	vertical-align:bottom;
+	line-height: $wideRowLineHeight;
+}
+
+/// Provides formatting of a wide row
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin wideRow ($label, $additionalContent:"") {
+	@include _wideRowFormat();
+	padding-left:$wideRowPaddingLeft;
+	
+	&:before {
+		content:
+		_label($label)
+		$additionalContent
+	}
+}
+
+/// Provides formatting of a wide row in :after
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin wideRowEnd ($label, $additionalContent:"") {
+	&:after {
+   @include _wideRowFormat();
+		line-height: $wideRowEndLineHeight;
+		padding-top:$wideRowEndPaddingTop;
+		padding-bottom:$wideRowEndPaddingBottom;
+		padding-left:$wideRowEndPaddingLeft;
+		
+		content:
+		_label($label)
+		$additionalContent
+	}
+}
+
+/// Provides formatting of a wide row;
+/// a "remove" button is added before the row label
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin wideRowOneButton ($label, $additionalContent:"") {
+  @include _wideRowFormat();
+  padding-left: $wideOneButtonRowPaddingLeft;
+
+	&:before {
+		content:
+		button("remove.this")
+		_buttonRowLabel($label)
+		$additionalContent
+	}
+}
+
+/// Provides formatting of a wide row;
+/// "add" and "remove" buttons are added before the label
+/// @parameter {string} $actionID - the ID of the author action to be invoked by pressing the add button
+/// @parameter {string} $label - the label of the row
+/// @parameter {object} $additionalContent - any additional content following the label (optional)
+@mixin wideRowTwoButtons ($actionID, $label, $additionalContent:"") {
+  @include _wideRowFormat();
+  padding-left: $wideTwoButtonRowPaddingLeft;
+
+	&:before {
+		content:
+		button($actionID)
+		button("remove.this")
+		_buttonRowLabel($label)
+		$additionalContent
+	}
+}
+
+

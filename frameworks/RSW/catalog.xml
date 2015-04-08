@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog 
+      PUBLIC "-//OASIS//DTD XML Catalogs V1.1//EN" 
+      "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd">
+      
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+	<uriSuffix uriSuffix="compilation.rng" uri="schema/compilation.rng"/>
+	<uriSuffix uriSuffix="correspondence.rng" uri="schema/correspondence.rng"/>
+	<uriSuffix uriSuffix="events.rng" uri="schema/events.rng"/>
+	<uriSuffix uriSuffix="graphic.rng" uri="schema/graphic.rng"/>
+	<uriSuffix uriSuffix="literature.rng" uri="schema/literature.rng"/>
+	<uriSuffix uriSuffix="org.rng" uri="schema/org.rng"/>
+	<uriSuffix uriSuffix="performance.rng" uri="schema/performance.rng"/>
+	<uriSuffix uriSuffix="person.rng" uri="schema/person.rng"/>
+	<uriSuffix uriSuffix="place.rng" uri="schema/place.rng"/>
+	<uriSuffix uriSuffix="repository.rng" uri="schema/repository.rng"/>
+	<uriSuffix uriSuffix="work.rng" uri="schema/work.rng"/>
+
+</catalog>

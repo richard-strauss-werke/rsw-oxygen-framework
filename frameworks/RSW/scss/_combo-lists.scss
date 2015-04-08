@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/// example values in editable combo boxes not defined in the ODD
+
+$valuesFolioName:"1r, 1v, 2r, 2v, 3r, 3v, 4r, 4v, U1, U2";
+
+$valuesTextLang:"deutsch, englisch, italienisch, französisch, ungarisch, niederländisch, schwedisch, tschechisch, spanisch";
+
+$valuesCountryKey: "DE, AT";
+
+$valuesFaith:"unbekannt, keine, katholisch, evangelisch, jüdisch, russisch-orthodox, buddhistisch, atheistisch";
+
+
+/// values in fixed-value combo boxes not defined in the ODD
+
+$valuesTaskPriority:",0, 1, 2, 3, 4, 5, 6, 7, 8, 9";
+
+$valuesXPointer:"element\(/1/2/1\), seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8, seg9";
+$labelsXPointer:"gesamter Text, Segment 1, Segment 2, Segment 3, Segment 4, Segment 5, Segment 6, Segment 7, Segment 8, Segment 9";
+
+$valuesAlignment:"align(left), align(left-center), align(left-right), align(center-left), align(center), align(center-right), align(right-left), align(right-center), align(right), diversed";
+$labelsAlignment:"links, links (mittig), links (rechts), mittig (links), mittig, mittig (rechts), rechts (links), rechts (mittig), rechts, Block";
+
+$valuesExtendedAlignment:"align(left), align(left-center), align(left-right), align(center-left), align(center), align(center-right), align(right-left), align(right-center), align(right), diversed, position(left-margin-up), position(left-margin-down), position(right-margin-up),  position(right-margin-down)";
+$labelsExtendedAlignment:"links, links (mittig), links (rechts), mittig (links), mittig, mittig (rechts), rechts (links), rechts (mittig), rechts, Block, Rand links aufwärts, Rand links abwärts, Rand rechts aufwärts, Rand rechts abwärts";
+
+$valuesFigureRend:"align(left), align(center), align(right), diversed";
+$labelsFigureRend:"links, mittig, rechts, Block";
+
+$valuesCommentarySubtype:"none, ent, entp, entpz, entpg, ents, rez, rezp, rezpz, rezpg, rezs";
+$labelsCommentarySubtype:"\00a0, Entstehung, Entstehung (p), Entstehung (pz), Entstehung (pg), Entstehung (s), Rezeption, Rezeption (p), Rezeption (pz), Rezeption (pg), Rezeption (s)";
+
+$valuesPersonIdnoType:"GND, RSQV";
+$valuesCorrespIdnoType:"UAG, RSQV";
+

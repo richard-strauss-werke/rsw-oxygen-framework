@@ -1,0 +1,97 @@
+<project name="strauss-odd" default="dist" basedir=".">
+	<description>RSW oXygen framework</description>
+	<property name="project.version" value="1.3.7"/>
+	<property file="build.properties"/>
+	<property file="build.default.properties"/>
+	
+<!--	<property name="displayMode" value="rng"/>-->
+	
+	<condition property="maven.command" value="mvn.bat" else="mvn">
+		<os family="windows"/>
+	</condition>
+
+	<path id="classpath.core">
+		<fileset dir="${server.dir}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement path="${server.dir}/exist.jar"/>
+		<pathelement path="${server.dir}/exist-optional.jar"/>
+	</path>
+	
+	<typedef resource="org/exist/ant/antlib.xml" uri="http://exist-db.org/ant">
+		<classpath refid="classpath.core"/>
+	</typedef>
+
+	<target name="clean">
+		<delete dir="dist"/>
+		<delete dir="target"/>
+	</target>
+
+	<target name="xslt">
+		<exec executable="${maven.command}">
+			<arg line="xml:transform" />
+		</exec>
+	</target>
+
+	<target name="watch">
+		<exec executable="${maven.command}">
+			<arg line="sass:watch" />
+		</exec>
+	</target>
+	
+	<target name="build" depends="clean">
+		<exec executable="${maven.command}">
+			<arg line="xml:transform sass:update-stylesheets install -Ddb.username=${db.username} -Ddb.password=${db.password} -Dextension.id=${extension.id}"/>
+		</exec>
+	</target>
+
+	<target name="copy-framework">
+		<copy todir="target/tmp-framework">
+			<fileset dir="frameworks"></fileset>
+		</copy>
+	</target>
+	
+	<target name="replace-framework-vars" depends="copy-framework">
+			<replace dir="target/tmp-framework/RSW">
+				<include name="*.framework"/>
+				<replacefilter token="${token1}" value="${value1}"/>
+				<replacefilter token="${token2}" value="${value2}"/>
+				<replacefilter token="${token3}" value="${value3}"/>
+			</replace>
+	</target>
+	
+	<target name="zip-framework" depends="copy-framework, replace-framework-vars">
+		<zip destfile="dist/framework/RSW.zip" basedir="target/tmp-framework"></zip>
+	</target>
+	
+	<target name="dist" depends="build, zip-framework">
+		<xdb:store 
+			xmlns:xdb="http://exist-db.org/ant" 
+			uri="${server.uri.variables}"
+			createcollection="true" 
+			createsubcollections="true" 
+			user="${config.username}"
+			password="${config.password}" 
+			srcfile="dist/variables/oddVariables.xml"
+		/>
+		<xdb:store 
+			xmlns:xdb="http://exist-db.org/ant" 
+			uri="${server.uri.framework}"
+			createcollection="true" 
+			createsubcollections="true" 
+			user="${config.username}"
+			password="${config.password}" 
+			srcfile="dist/framework/RSW.zip"
+		/>
+		<xdb:store 
+			xmlns:xdb="http://exist-db.org/ant" 
+			uri="${server.uri.framework}"
+			createcollection="true" 
+			createsubcollections="true" 
+			user="${config.username}"
+			password="${config.password}" 
+			srcfile="dist/framework/latest.xml"
+		/>
+	</target>
+
+</project>
