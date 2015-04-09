@@ -57,17 +57,12 @@
 package com.aerhard.oxygen.framework.tei;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.text.BadLocationException;
 
-import org.apache.commons.codec.binary.Base64;
+import com.aerhard.oxygen.plugin.dbtagger.util.HttpUtil;
 import org.apache.log4j.Logger;
 
 import ro.sync.annotations.api.API;
@@ -102,6 +97,7 @@ public class InsertExternalFragment implements AuthorOperation {
     private static final String ARG_URL = "url";
     private static final String ARG_USER = "user";
     private static final String ARG_ACTION = "action";
+    private HttpUtil httpUtil = new HttpUtil();
 
     public InsertExternalFragment() {
     }
@@ -156,7 +152,7 @@ public class InsertExternalFragment implements AuthorOperation {
             String urlParameter, String user, String action)
             throws AuthorOperationException, IOException {
 
-        String response = request(urlParameter + user);
+        String response = httpUtil.get(null, null, urlParameter, user, false);
 
         if (response != null) {
 
@@ -235,10 +231,6 @@ public class InsertExternalFragment implements AuthorOperation {
                         response, targetNode,
                         AuthorConstants.POSITION_INSIDE_FIRST);
             }
-        } else {
-            authorAccess.getWorkspaceAccess().showErrorMessage(
-                    "Fehler bei der Server-Anfrage \"" + urlParameter + user
-                            + "\"");
         }
 
     }
@@ -261,36 +253,6 @@ public class InsertExternalFragment implements AuthorOperation {
                         splitResponse[0]);
             }
         }
-    }
-
-    String request(String urlParameter) {
-        String response = null;
-        try {
-            URL url = new URL(urlParameter);
-
-            URLConnection urlConnection = url.openConnection();
-
-            if (url.getUserInfo() != null) {
-                String basicAuth = "Basic " + new String(new Base64().encode(url.getUserInfo().getBytes()));
-                urlConnection.setRequestProperty("Authorization", basicAuth);
-            }
-
-            InputStream is = urlConnection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-
-            int numCharsRead;
-            char[] charArray = new char[1024];
-            StringBuilder sb = new StringBuilder();
-            while ((numCharsRead = isr.read(charArray)) > 0) {
-                sb.append(charArray, 0, numCharsRead);
-            }
-            response = sb.toString();
-        } catch (MalformedURLException e) {
-            LOGGER.error(e, e);
-        } catch (IOException e) {
-            LOGGER.error(e, e);
-        }
-        return response;
     }
 
     String[] splitContentFromElement(String string) {
