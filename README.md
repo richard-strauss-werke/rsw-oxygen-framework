@@ -6,12 +6,12 @@ The RSW oXygen framework makes extensive use of form controls in oXygen's Author
 Status
 ------
 
-In development / migration. The UI has only been tested in oXygen 15.0 on Windows 7 - obtaining a clean look with other setups most probably requires changes to the SCSS constants in `/frameworks/RSW/scss`.
+In development / migration. The UI has only been tested in oXygen 15.0 on Windows 7 - obtaining a clean look with other setups most probably requires changes to the SCSS variables in `/frameworks/RSW/scss` to adjust the CSS to deviating Java UI component dimensions.
 
 Directory structure
 -------------------
 
-The Java author extensions are organized as a [Maven project](http://maven.apache.org/). The extensions' Java artifacts are stored to `/frameworks/RSW/lib` when you perform a new Java build. The configuration files of the framework are not part of the Maven project structure, but are stored in `/frameworks/RSW`. The can be both read and written from oXygen.   
+The Java author extensions are organized as a [Maven project](http://maven.apache.org/), source code in the `src` folder. The extensions' Java artifacts are stored to `/frameworks/RSW/lib` when you perform a new Java build. The oXygen framework files are not part of the Maven project structure, but are stored in `/frameworks/RSW`. They can be both read and written from oXygen.   
 
 Setup for development
 ---------------------
