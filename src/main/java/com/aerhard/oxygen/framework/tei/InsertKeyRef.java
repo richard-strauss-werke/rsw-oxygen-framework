@@ -18,10 +18,10 @@ import ro.sync.ecss.extensions.api.ArgumentsMap;
 import ro.sync.ecss.extensions.api.AuthorConstants;
 import ro.sync.ecss.extensions.api.AuthorOperation;
 import ro.sync.ecss.extensions.api.AuthorOperationException;
+import ro.sync.ecss.extensions.api.access.AuthorWorkspaceAccess;
 import ro.sync.ecss.extensions.api.node.AuthorElement;
 import ro.sync.ecss.extensions.api.node.AuthorNode;
 import ro.sync.ecss.extensions.commons.operations.CommonsOperationsUtil;
-import ro.sync.exml.workspace.api.Workspace;
 
 /**
  * uses parts of ro.sync.ecss.extensions.commons.operations.TransformOperation
@@ -37,8 +37,6 @@ public class InsertKeyRef implements AuthorOperation {
      */
     private static final Logger LOGGER = Logger.getLogger(InsertKeyRef.class
             .getName());
-
-    public static final String CURRENT_ELEMENT_LOCATION = "currentElementLocation";
 
     public final static String ACTION_SURROUND = "Surround";
     public final static String ACTION_INSERT_ATTRIBUTE = "Insert attribute";
@@ -232,9 +230,10 @@ public class InsertKeyRef implements AuthorOperation {
 
         String selection = authorAccess.getEditorAccess().getSelectedText();
 
-        String[] prefsSet1 = { title, null, null, url };
+        String subUrl = null;
 
-        openDialog(selection, prefsSet1, authorAccess.getWorkspaceAccess());
+
+        openDialog(selection, title, url, subUrl, authorAccess.getWorkspaceAccess());
     }
 
     /**
@@ -242,15 +241,16 @@ public class InsertKeyRef implements AuthorOperation {
      * 
      * @param selection
      *            the selection in the current editor pane
+     * @param title the title of the dialog
+     * @param url the request url
+     * @param subUrl the url for sub-item requests
+     * @param workspace the workspace object
      */
-    void openDialog(final String selection, final String[] configItem,
-            final Workspace workspace) {
-
-        SearchDialog searchDialog = new SearchDialog(workspace);
-        searchDialog.setConfig(configItem[0], configItem[1], configItem[2],
-                configItem[3], selection);
-        searchDialog.loadData(selection, true);
-        if (searchDialog.hasValidData()) {
+    void openDialog(final String selection, String title, String url, String subUrl,
+            final AuthorWorkspaceAccess workspace) {
+        SearchDialog searchDialog = new SearchDialog(workspace,
+                title, null, null, url, subUrl, selection);
+        if (searchDialog.load(selection)) {
             final String[] selectedSearchResult = searchDialog.showDialog();
             if (selectedSearchResult != null) {
                 SwingUtilities.invokeLater(new Runnable() {

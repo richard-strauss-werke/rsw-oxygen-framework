@@ -279,11 +279,8 @@ $labels-rsw_data-placeNamePrecision:", nahe, bei";
 $values-rsw_data-revisionDescChangeType:", UO, UC, UA, UP, UI, UM, UD, UG, UH, UF, UJ, UB, UE, UZ, UW, KO, KC, KA, KP, KI, KM, KD, KG, KH, KF, KJ, KB, KE, KZ, KW, VQ, VT, VL, P, C, A";
 $labels-rsw_data-revisionDescChangeType:", Übertragen nach Original, Übertragen nach Entwurf, Übertragen nach Abschrift v.f.H., Übertragen nach Papierkopie, Übertragen nach Mikroform, Übertragen nach autogr. Abschrift, Übertragen nach Original [Digitalisat], Übertragen nach Entwurf [Digitalisat], Übertragen nach Abschrift v.f.H. [Digitalisat], Übertragen nach Papierkopie [Digitalisat], Übertragen nach Mikroform [Digitalisat], Übertragen nach autogr. Abschrift [Digitalisat], Übertragen nach Edition, Übertragen nach Auszug, Übertragung, Korrigiert nach Original, Korrigiert nach Entwurf, Korrigiert nach Abschrift v.f.H., Korrigiert nach Papierkopie, Korrigiert nach Mikroform, Korrigiert nach autogr. Abschrift, Korrigiert nach Original [Digitalisat], Korrigiert nach Entwurf [Digitalisat], Korrigiert nach Abschrift v.f.H. [Digitalisat], Korrigiert nach Papierkopie [Digitalisat], Korrigiert nach Mikroform [Digitalisat], Korrigiert nach autogr. Abschrift [Digitalisat], Korrigiert nach Edition, Korrigiert nach Auszug, Korrigiert, Vollständigkeit der Quellenübertragung bestätigt, Vollständigkeit der Textauszeichnung bestätigt, Vollständigkeit der Verlinkung bestätigt, Vorgeschlagen zur Publikation, Als möglicherweise publikationsfertig gekennzeichnet, Zur Publikation freigegeben";
 
-$values-rsw_data-orgNameOrchestraExtent:", full-size, reduced-size";
-$labels-rsw_data-orgNameOrchestraExtent:", volle Besetzung, reduzierte Besetzung";
-
-$values-rsw_data-persNamePerformanceRole:", conductor, stage-director, scenery-designer, costume-designer, involved-in-preparation, visitor";
-$labels-rsw_data-persNamePerformanceRole:", Dirigent, Regisseur, Bühnenbild, Kostüme, bei den Vorbereitungen, Besucher";
+$values-rsw_data-idnoPerOrgType:"gnd, viaf, url";
+$labels-rsw_data-idnoPerOrgType:"GND-ID, VIAF-ID, URL identifier";
 
 $values-rsw_data-supplPersNameType:"unknown, full, former, later, birth, real, pseud, nickname, variant, other";
 $labels-rsw_data-supplPersNameType:"unbekannte Art, voller Name, früherer Name, späterer Name, Geburtsname, wirklicher Name, Pseudonym, Kosename, Variante, sonstige Art";
@@ -345,11 +342,11 @@ $labels-rsw_imprint-imprint-date-type:", ©, [ ]";
 $values-rsw_imprint-imprint-biblScope-unit:"pp, col, fol";
 $labels-rsw_imprint-imprint-biblScope-unit:", , ";
 
-$values-rsw_biblScope-biblScope-type:", vol, issue, pp, ll, chap, part";
-$labels-rsw_biblScope-biblScope-type:", volume, the element contains an issue number${comma} or volume and issue numbers., pages, lines, chapter, the element identifies a part of a book or collection.";
-
 $values-rsw_stage-stage-type:", setting, entrance, exit, business, novelistic, delivery, modifier, location, mixed";
 $labels-rsw_stage-stage-type:", describes a setting., describes an entrance., describes an exit., describes stage business., is a narrative${comma} motivating stage direction., describes how a character speaks., gives some detail about a character., describes a location., more than one of the above";
+
+$values-rsw_handNote-handNote-medium:", typescript, pencil, ink, black-ink, blue-ink, red-ink, brown-ink, crayon, black-crayon, blue-crayon, red-crayon, brown-crayon";
+$labels-rsw_handNote-handNote-medium:", Maschinenschrift, Bleistift, Tinte, schwarze Tinte, blaue Tinte, rote Tinte, braune Tinte, Farbstift, schwarzer Farbstift, blauer Farbstift, roter Farbstift, brauner Farbstift";
 
 $values-rsw_sex-sex-value:", M, F, O, N, U";
 $labels-rsw_sex-sex-value:", männlich, weiblich, sonstiges, keines, unbekannt";
@@ -369,6 +366,9 @@ $labels-rsw_castItem-castItem-type:", the item describes a single role., the ite
 $values-rsw_include-include-parse:", xml, text";
 $labels-rsw_include-include-parse:", , ";
 
+$values-rsw_data-idnoMsType:"rsqv, uag, url";
+$labels-rsw_data-idnoMsType:"RSQV-ID, UAG-ID, URL identifier";
+
 $values-rsw_data-keyword_corresp:", Brief, Postkarte, Kartenbrief, Briefumschlag, Telegramm, schriftliche Mitteilung, Visitenkarte, Vertrag, Notiz, Notizbuch, Musikhandschrift, Schriftstück";
 $labels-rsw_data-keyword_corresp:", http://d-nb.info/gnd/4008240-4, http://d-nb.info/gnd/4046902-5, , http://d-nb.info/gnd/4146614-7, http://d-nb.info/gnd/4184647-3, http://d-nb.info/gnd/4180011-4, http://d-nb.info/gnd/4188409-7, http://d-nb.info/gnd/4063270-2, http://d-nb.info/gnd/4206777-7, http://d-nb.info/gnd/4225695-1, http://d-nb.info/gnd/4040847-4, http://d-nb.info/gnd/4180009-6";
 
@@ -381,23 +381,11 @@ $labels-rsw_data-divTypeCorresp:", Haupttext, Beilage, Adressteil";
 $values-rsw_revisionDesc-revisionDesc-status:", proposed, candidate, approved";
 $labels-rsw_revisionDesc-revisionDesc-status:", Publikationsvorschlag, Publikationskandidat, freigegeben zur Publikation";
 
-$values-rsw_data-changeEventType:"unknown, T, S, M, P, D, A, B, R, other";
-$labels-rsw_data-changeEventType:"unbekannte Kategorie, Treffen, schöpf. Tätigkeit, häusl. Musizieren, Probe, öff. Dirigat, Aufführungsbesuch, Geschäftstätigkeit, Reise, andere Kategorie";
-
-$values-rsw_data-keyword_graphic:", Theaterzettel, Zeichnung, Entwurfszeichnung, Druckgraphik, Gemälde, Photographie";
-$labels-rsw_data-keyword_graphic:", http://d-nb.info/gnd/4185060-9, http://d-nb.info/gnd/4127900-1, http://d-nb.info/gnd/4152458-5, http://d-nb.info/gnd/4113357-2, http://d-nb.info/gnd/4122164-3, http://d-nb.info/gnd/4045895-7";
-
-$values-rsw_data-keyword_print:", Rezension, Interview, Zeitungsaufsatz, Zeitschriftenaufsatz, Aufsatz, Kapitel, Sammelwerk, Monographie, Libretto, Dissertation, Magisterarbeit, Musikdruck, Druckwerk, Online-Publikation";
-$labels-rsw_data-keyword_print:", http://d-nb.info/gnd/4049712-4, http://d-nb.info/gnd/4027503-6, http://d-nb.info/gnd/4125430-2, http://d-nb.info/gnd/4125424-7, , http://d-nb.info/gnd/4290552-7, http://d-nb.info/gnd/4202533-3, http://d-nb.info/gnd/4454906-4, http://d-nb.info/gnd/4035588-3, http://d-nb.info/gnd/4012494-0, http://d-nb.info/gnd/4168514-3, http://d-nb.info/gnd/4075121-1, http://d-nb.info/gnd/4013134-8, http://d-nb.info/gnd/4511937-5";
-
-$values-rsw_data-biblTypeLiterature:"u, o, w, t, e, a, n, s";
-$labels-rsw_data-biblTypeLiterature:"Unbekannter Bezug, Folgeauflage, Wiederabdruck, Übersetzung, Edition in, Auszug in, Nennung in, Sonstiger Bezug";
+$values-rsw_data-interval:", regular, irregular, unknown";
+$labels-rsw_data-interval:", , , ";
 
 $values-rsw_data-xTruthValue:", unknown, inapplicable";
 $labels-rsw_data-xTruthValue:", , ";
-
-$values-rsw_data-idnoPlaceType:"geonames, getty";
-$labels-rsw_data-idnoPlaceType:"ID von http://www.geonames.org/, ID von http://www.getty.edu/research/tools/vocabularies/tgn/";
 
 $values-rsw_att-declarable-attribute-default-default:", true, false";
 $labels-rsw_att-declarable-attribute-default-default:", This element is selected if its parent is selected, This element can only be selected explicitly${comma} unless it is the only one of its kind${comma} in which case it is selected if its parent is selected.";
@@ -414,14 +402,122 @@ $labels-rsw_att-divLike-attribute-sample-sample:", division lacks material prese
 $values-rsw_att-global-attribute-xmlspace-xmlspace:", default, preserve";
 $labels-rsw_att-global-attribute-xmlspace-xmlspace:", signals that the application's default white-space processing modes are acceptable, indicates the intent that applications preserve all white space";
 
+$values-rsw_att-handFeatures-attribute-scope-scope:", sole, major, minor";
+$labels-rsw_att-handFeatures-attribute-scope-scope:", only this hand is used throughout the manuscript, this hand is used through most of the manuscript, this hand is used occasionally in the manuscript";
+
+$values-rsw_att-measurement-attribute-unit-unit:", m, kg, s, Hz, Pa, Ω, L, t, ha, Å, mL, cm, dB, kbit, Kibit, kB, KiB, MB, MiB";
+$labels-rsw_att-measurement-attribute-unit-unit:", metre, kilogram, second, hertz, pascal, ohm, litre, tonne, hectare, ångström, millilitre, centimetre, decibel, kilobit, kibibit, kilobyte, kibibyte, megabyte, mebibyte";
+
 $values-rsw_att-pointing-attribute-evaluate-evaluate:", all, one, none";
 $labels-rsw_att-pointing-attribute-evaluate-evaluate:", if the element pointed to is itself a pointer${comma} then the target of that pointer will be taken${comma} and so on${comma} until an element is found which is not a pointer., if the element pointed to is itself a pointer${comma} then its target (whether a pointer or not) is taken as the target of this pointer., no further evaluation of targets is carried out beyond that needed to find the element specified in the pointer's target.";
+
+$values-rsw_att-styleDef-attribute-scheme-scheme:", css, xslfo, free, other";
+$labels-rsw_att-styleDef-attribute-scheme-scheme:", Cascading Stylesheet Language, Extensible Stylesheet Language Formatting Objects, Informal free text description, A user-defined rendition description language";
+
+$values-rsw_att-personal-attribute-full-full:", yes, abb, init";
+$labels-rsw_att-personal-attribute-full-full:", the name component is spelled out in full., abbreviated, initial letter";
+
+$values-rsw_num-num-type:", cardinal, ordinal, fraction, percentage";
+$labels-rsw_num-num-type:", absolute number${comma} e.g. 21${comma} 21.5, ordinal number${comma} e.g. 21st, fraction${comma} e.g. one half or three-quarters, a percentage";
+
+$values-rsw_availability-availability-status:", free, unknown, restricted";
+$labels-rsw_availability-availability-status:", the text is freely available., the status of the text is unknown., the text is not freely available.";
+
+$values-rsw_correction-correction-status:", high, medium, low, unknown";
+$labels-rsw_correction-correction-status:", the text has been thoroughly checked and proofread., the text has been checked at least once., the text has not been checked., the correction status of the text is unknown.";
+
+$values-rsw_correction-correction-method:", silent, markup";
+$labels-rsw_correction-correction-method:", corrections have been made silently, corrections have been represented using markup";
+
+$values-rsw_normalization-normalization-method:", silent, markup";
+$labels-rsw_normalization-normalization-method:", normalization made silently, normalization represented using markup";
+
+$values-rsw_quotation-quotation-marks:", none, some, all";
+$labels-rsw_quotation-quotation-marks:", no quotation marks have been retained, some quotation marks have been retained, all quotation marks have been retained";
+
+$values-rsw_hyphenation-hyphenation-eol:", all, some, hard, none";
+$labels-rsw_hyphenation-hyphenation-eol:", all end-of-line hyphenation has been retained${comma} even though the lineation of the original may not have been., end-of-line hyphenation has been retained in some cases., all soft end-of-line hyphenation has been removed: any remaining end-of-line hyphenation should be retained., all end-of-line hyphenation has been removed: any remaining hyphenation occurred within the line.";
+
+$values-rsw_punctuation-punctuation-marks:", none, some, all";
+$labels-rsw_punctuation-punctuation-marks:", no punctuation marks have been retained, some punctuation marks have been retained, all punctuation marks have been retained";
+
+$values-rsw_punctuation-punctuation-placement:", internal, external";
+$labels-rsw_punctuation-punctuation-placement:", punctuation marks are captured inside adjacent elements, punctuation marks are captured outside adjacent elements";
+
+$values-rsw_geoDecl-geoDecl-datum:", WGS84, MGRS, OSGB36, ED50";
+$labels-rsw_geoDecl-geoDecl-datum:", World Geodetic System, Military Grid Reference System, ordnance survey great britain, European Datum coordinate system";
+
+$values-rsw_correspAction-correspAction-type:", sent, received, transmitted, redirected, forwarded";
+$labels-rsw_correspAction-correspAction-type:", information concerning the sending or dispatch of a message, information concerning the receipt of a message, information concerning the transmission of a message${comma} i.e. between the dispatch and the next receipt${comma} redirect or forwarding, information concerning the redirection of an unread message, information concerning the forwarding of a message";
+
+$values-rsw_when-when-unit:", d, h, min, s, ms";
+$labels-rsw_when-when-unit:", days, hours, minutes, seconds, milliseconds";
+
+$values-rsw_timeline-timeline-unit:", d, h, min, s, ms";
+$labels-rsw_timeline-timeline-unit:", days, hours, minutes, seconds, milliseconds";
+
+$values-rsw_join-join-scope:", root, branches";
+$labels-rsw_join-join-scope:", the rooted subtrees indicated by the target attribute are joined${comma} each subtree become a child of the virtual element created by the join, the children of the subtrees indicated by the target attribute become the children of the virtual element (i.e. the roots of the subtrees are discarded)";
+
+$values-rsw_alt-alt-mode:", excl, incl";
+$labels-rsw_alt-alt-mode:", exclusive, inclusive";
+
+$values-rsw_altGrp-altGrp-mode:", excl, incl";
+$labels-rsw_altGrp-altGrp-mode:", exclusive, inclusive";
+
+$values-rsw_certainty-certainty-locus:"name, start, end, location, value";
+$labels-rsw_certainty-certainty-locus:"uncertainty concerns whether the name of the element or attribute used is correctly applied., uncertainty concerns whether the start of the element is correctly identified., uncertainty concerns whether the end of the element is correctly identified., uncertainty concerns both the start and the end of the element., uncertainty concerns the content (for an element) or the value (for an attribute)";
+
+$values-rsw_titlePart-titlePart-type:", main, sub, alt, short, desc";
+$labels-rsw_titlePart-titlePart-type:", main title of the work, Untertitel des Werks, Alternativer Titel des Werks, abbreviated form of title, Kurzbeschreibung des Werks";
+
+$values-rsw_supportDesc-supportDesc-material:", paper, parch, mixed";
+$labels-rsw_supportDesc-supportDesc-material:", , parchment, ";
+
+$values-rsw_move-move-type:", entrance, exit, onStage";
+$labels-rsw_move-move-type:", character is entering the stage., character is exiting the stage., character moves on stage";
+
+$values-rsw_tech-tech-type:", light, sound, prop, block";
+$labels-rsw_tech-tech-type:", a lighting cue, a sound cue, a prop cue, a blocking instruction";
+
+$values-rsw_variantEncoding-variantEncoding-method:"location-referenced, double-end-point, parallel-segmentation";
+$labels-rsw_variantEncoding-variantEncoding-method:"apparatus uses line numbers or other canonical reference scheme referenced in a base text., apparatus indicates the precise locations of the beginning and ending of each lemma relative to a base text., alternate readings of a passage are given in parallel in the text; no notion of a base text is necessary.";
+
+$values-rsw_variantEncoding-variantEncoding-location:"internal, external";
+$labels-rsw_variantEncoding-variantEncoding-location:"apparatus appears within the running text., apparatus appears outside the base text.";
+
+$values-rsw_egXML-egXML-valid:", true, feasible, false";
+$labels-rsw_egXML-egXML-valid:", the example is intended to be fully valid${comma} assuming that its root element${comma} or a provided root element${comma} could have been used as a possible root element in the schema concerned., the example could be transformed into a valid document by inserting any number of valid attributes and child elements anywhere within it; or it is valid against a version of the schema concerned in which the provision of character data${comma} list${comma} element${comma} or attribute values has been made optional., the example is not intended to be valid${comma} and contains deliberate errors.";
+
+$values-rsw_data-changeEventType:"unknown, T, S, M, P, B, R, other";
+$labels-rsw_data-changeEventType:"unbekannte Kategorie, Treffen, schöpf. Tätigkeit, häusl. Musizieren, Probe, Geschäftstätigkeit, Reise, andere Kategorie";
+
+$values-rsw_data-keyword_graphic:", Theaterzettel, Zeichnung, Entwurfszeichnung, Druckgraphik, Gemälde, Photographie";
+$labels-rsw_data-keyword_graphic:", http://d-nb.info/gnd/4185060-9, http://d-nb.info/gnd/4127900-1, http://d-nb.info/gnd/4152458-5, http://d-nb.info/gnd/4113357-2, http://d-nb.info/gnd/4122164-3, http://d-nb.info/gnd/4045895-7";
+
+$values-rsw_data-idnoPrintType:"oclc, rsqv, url";
+$labels-rsw_data-idnoPrintType:"OCLC-ID (WorldCat), RSQV-ID, URL identifier";
+
+$values-rsw_data-keyword_print:", Rezension, Interview, Zeitungsaufsatz, Zeitschriftenaufsatz, Aufsatz, Kapitel, Sammelwerk, Monographie, Libretto, Dissertation, Magisterarbeit, Musikdruck, Druckwerk, Online-Publikation";
+$labels-rsw_data-keyword_print:", http://d-nb.info/gnd/4049712-4, http://d-nb.info/gnd/4027503-6, http://d-nb.info/gnd/4125430-2, http://d-nb.info/gnd/4125424-7, , http://d-nb.info/gnd/4290552-7, http://d-nb.info/gnd/4202533-3, http://d-nb.info/gnd/4454906-4, http://d-nb.info/gnd/4035588-3, http://d-nb.info/gnd/4012494-0, http://d-nb.info/gnd/4168514-3, http://d-nb.info/gnd/4075121-1, http://d-nb.info/gnd/4013134-8, http://d-nb.info/gnd/4511937-5";
+
+$values-rsw_data-biblTypeLiterature:"u, o, w, t, e, a, n, s";
+$labels-rsw_data-biblTypeLiterature:"Unbekannter Bezug, Folgeauflage, Wiederabdruck, Übersetzung, Edition in, Auszug in, Nennung in, Sonstiger Bezug";
+
+$values-rsw_data-orgNameOrchestraExtent:", full-size, reduced-size";
+$labels-rsw_data-orgNameOrchestraExtent:", volle Besetzung, reduzierte Besetzung";
+
+$values-rsw_data-persNamePerformanceRole:", conductor, stage-director, scenery-designer, costume-designer, involved-in-preparation, visitor";
+$labels-rsw_data-persNamePerformanceRole:", Dirigent, Regisseur, Bühnenbild, Kostüme, bei den Vorbereitungen, Besucher";
+
+$values-rsw_data-idnoPlaceType:"geonames, getty, viaf, gnd, url";
+$labels-rsw_data-idnoPlaceType:"ID von http://www.geonames.org/, ID von http://www.getty.edu/research/tools/vocabularies/tgn/, VIAF-ID, GND-ID, URL identifier";
 
 $values-rsw_placeName-placeName-type:"reg, alt, toponym, local";
 $labels-rsw_placeName-placeName-type:"regulär, Alternative, , ";
 
-$values-rsw_att-personal-attribute-full-full:", yes, abb, init";
-$labels-rsw_att-personal-attribute-full-full:", the name component is spelled out in full., abbreviated, initial letter";
+$values-rsw_data-idnoRepositoryType:"rism, gnd, viaf, url";
+$labels-rsw_data-idnoRepositoryType:"RISM-ID, GND-ID, VIAF-ID, URL identifier";
 
 $values-mei_data-keyword_work:", Schauspiel, Roman, Gedicht(e), Bühnenmusik, Orchestermusik, Kammermusik, Instrumental-Solo, Vokalmusik, Oratorium, Kantate, Liturgische Musik";
 $labels-mei_data-keyword_work:", , , , , , , , , , , ";
@@ -429,8 +525,8 @@ $labels-mei_data-keyword_work:", , , , , , , , , , , ";
 $values-mei_marcRelator-list:", arr, aut, cmp, dte, lbt, edt, lyr, trl";
 $labels-mei_marcRelator-list:", Arrangeur, Autor, Komponist, Widmungsträger, Librettist, Herausgeber, Dichter, Übersetzer";
 
-$values-mei_identifier-identifier-type:"gnd, RSQV, ASOW, TRENNER, OP";
-$labels-mei_identifier-identifier-type:"Gemeinsame Normdatei, Markiert einen Identifikator des Richard-Strauss-Quellenverzeichnisses., Markiert eine Nummer des Asow-Verzeichnisses., Markiert eine Nummer des Trenner-Verzeichnisses., Opus";
+$values-mei_identifier-identifier-type:"viaf, gnd, rsqv, asow, trenner, opus, url";
+$labels-mei_identifier-identifier-type:"VIAF, Gemeinsame Normdatei, Markiert einen Identifikator des Richard-Strauss-Quellenverzeichnisses., Markiert eine Nummer des Asow-Verzeichnisses., Markiert eine Nummer des Trenner-Verzeichnisses., Opus, URL";
 
 $values-mei_title-title-type:", main, sub, alt, original, version";
 $labels-mei_title-title-type:", Markiert den Haupttitel., Markiert einen Untertitel., alternativ, Original, Fassung";

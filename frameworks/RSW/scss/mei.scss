@@ -29,13 +29,25 @@ work {
 		@include wideRowTwoButtons("insert.identifier", "Identifikator",
 			"Typ: "
 			editableCombo("@type", $values-mei_identifier-identifier-type)
-			" Nummer: "
+			" Wert: "
 		);
+		
+		&[type="rsqv"],
+		&[type="viaf"],
+		&[type="gnd"],
+		&[type="url"] {
+			@include wideRowTwoButtons("insert.identifier", "Identifikator",
+				"Typ: "
+				editableCombo("@type", $values-mei_identifier-identifier-type)
+				button("open.browser")			
+				" Wert: "
+			);		
+		}
 	}
 	
 	title {
 		&[type="main"]     { @include wideRow("Titel"); }
-		&[type="sub"]      { @include wideRow("Untertitel"); }
+		&[type="sub"]      { @include wideRowTwoButtons("insert.subtitle", "Untertitel"); }
 		&[type="version"]  { @include wideRow("Fassung"); }
 		&[type="alt"]      { @include wideRow("Alternativtitel"); }
 		&[type="original"] { @include wideRow("Originaltitel"); }

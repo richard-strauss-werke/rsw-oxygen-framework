@@ -12,12 +12,12 @@ import javax.swing.text.BadLocationException;
 import java.io.IOException;
 
 @API(type = APIType.INTERNAL, src = SourceType.PUBLIC)
-public class CreateMonogr implements AuthorOperation {
+public class ExtractMonograph implements AuthorOperation {
 
     /**
      * Logger for logging.
      */
-    private static final Logger LOGGER = Logger.getLogger(CreateMonogr.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ExtractMonograph.class.getName());
 
 
     private static final String ARG_ONE = "url";
@@ -25,7 +25,7 @@ public class CreateMonogr implements AuthorOperation {
     private static final String ARG_THREE = "benutzer";
     private HttpUtil httpUtil = new HttpUtil();
 
-    public CreateMonogr() {
+    public ExtractMonograph() {
     }
 
     /**
@@ -36,7 +36,7 @@ public class CreateMonogr implements AuthorOperation {
             throws IllegalArgumentException, AuthorOperationException {
         String url = (String) map.getArgumentValue(ARG_ONE);
         String pro = (String) map.getArgumentValue(ARG_TWO);
-        String benutzer = (String) map.getArgumentValue(ARG_THREE);
+        String user = (String) map.getArgumentValue(ARG_THREE);
 
         String[] buttons = {"OK", "Abbrechen"};
         int[] buttonVals = {1, 0};
@@ -45,20 +45,12 @@ public class CreateMonogr implements AuthorOperation {
 
         if (doIt == 1) {
             try {
-                createDoc(authorAccess, url, pro, benutzer);
+                createDoc(authorAccess, url, pro, user);
             } catch (IOException e) {
                 LOGGER.error(e, e);
             }
         }
 
-    }
-
-    /**
-     * @see ro.sync.ecss.extensions.api.Extension#getDescription()
-     */
-    @Override
-    public String getDescription() {
-        return "Stelle in Datenbank suchen";
     }
 
     /**
@@ -78,7 +70,7 @@ public class CreateMonogr implements AuthorOperation {
                 new ArgumentDescriptor(
                         ARG_THREE,
                         ArgumentDescriptor.TYPE_STRING,
-                        "benutzer")
+                        "Benutzer")
         };
     }
 
@@ -125,6 +117,14 @@ public class CreateMonogr implements AuthorOperation {
             authorAccess.getWorkspaceAccess().showErrorMessage("Konnte die Datei nicht anlegen.\n(" + response + ")");
         }
 
+    }
+
+    /**
+     * @see ro.sync.ecss.extensions.api.Extension#getDescription()
+     */
+    @Override
+    public String getDescription() {
+        return "Stelle in Datenbank suchen";
     }
 
 }

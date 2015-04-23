@@ -4,8 +4,6 @@
 	<property file="build.properties"/>
 	<property file="build.default.properties"/>
 	
-<!--	<property name="displayMode" value="rng"/>-->
-	
 	<condition property="maven.command" value="mvn.bat" else="mvn">
 		<os family="windows"/>
 	</condition>
@@ -41,7 +39,7 @@
 	
 	<target name="build" depends="clean">
 		<exec executable="${maven.command}">
-			<arg line="xml:transform sass:update-stylesheets install -Ddb.username=${db.username} -Ddb.password=${db.password} -Dextension.id=${extension.id}"/>
+			<arg line="xml:transform sass:update-stylesheets install -Dextension.id=${extension.id}"/>
 		</exec>
 	</target>
 
@@ -57,6 +55,8 @@
 				<replacefilter token="${token1}" value="${value1}"/>
 				<replacefilter token="${token2}" value="${value2}"/>
 				<replacefilter token="${token3}" value="${value3}"/>
+				<replacefilter token="${token4}" value="${value4}"/>
+				<replacefilter token="${token5}" value="${value5}"/>
 			</replace>
 	</target>
 	

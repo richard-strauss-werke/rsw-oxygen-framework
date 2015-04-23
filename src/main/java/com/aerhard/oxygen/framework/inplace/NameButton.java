@@ -88,31 +88,33 @@ public class NameButton extends InplaceButton {
 
         String selection = authorAccess.getEditorAccess().getSelectedText();
 
-        String[] dialogProperties = {title, null, null, url};
+        String subUrl = null;
 
-        openDialog(selection, dialogProperties, authorAccess.getWorkspaceAccess());
+        openDialog(selection, title, url, subUrl, authorAccess.getWorkspaceAccess());
 
     }
 
     /**
      * Opens the search dialog.
      *
-     * @param selection the selection in the current editor pane
+     * @param selection
+     *            the selection in the current editor pane
+     * @param title the title of the dialog
+     * @param url the request url
+     * @param subUrl the url for sub-item requests
+     * @param workspace the workspace object
      */
-    void openDialog(final String selection, final String[] configItem,
+    void openDialog(final String selection, String title, String url, String subUrl,
                     final AuthorWorkspaceAccess workspace) {
-
-        SearchDialog searchDialog = new SearchDialog(workspace);
-        searchDialog.setConfig(configItem[0], configItem[1], configItem[2],
-                configItem[3], selection);
-        searchDialog.loadData(selection, true);
-        if (searchDialog.hasValidData()) {
+        SearchDialog searchDialog = new SearchDialog(workspace,
+                title, null, null, url, subUrl, selection);
+        if (searchDialog.load(selection)) {
             final String[] selectedSearchResult = searchDialog.showDialog();
             if (selectedSearchResult != null) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        insertData(selectedSearchResult);
+                            insertData(selectedSearchResult);
                     }
                 });
             }

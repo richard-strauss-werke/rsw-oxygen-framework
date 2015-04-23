@@ -21,7 +21,7 @@
 @function handAttributeCombo($attribute) {
 	@return fixedValuesCombo($attribute,
 		oxy_xpath('string-join(//handNote/concat("\#",@xml:id), ",") '),
-		oxy_xpath('string-join(//handNote//abbr/replace(string(.), ",", "\\${comma}") , ",") ')
+		oxy_xpath('string-join(//handNote/label/replace(string(.), ",", "\\${comma}") , ",") ')
 	);
 }
 
@@ -72,12 +72,8 @@ TEI[xml\|id="event"] {
 		@include defaultMargin();
 	}
 
-	publicationStmt {
-		@include headerRowStart("Identifikatoren");
-		&:before {
-			border-left:8px solid white;
-			border-right:8px solid white;
-		}
+	publicationStmt, titleStmt {
+		display:none;
 	}
 
 	change {
@@ -111,8 +107,19 @@ TEI[xml\|id="event"] {
 	}
 }
 
+
 TEI[xml\|id="reception"],
 TEI[xml\|id="literature"] {
+
+	publicationStmt > idno {
+		@include wideRowTwoButtons("insert.rsqv-id", "Identifikator",
+			"Typ: "
+			fixedValuesCombo("@type", $values-rsw_data-idnoPrintType, $values-rsw_data-idnoPrintType, 7)
+			button("open.browser")			
+			" Wert: "
+		);
+	}
+
 	term {
 		@include headerRowContent("Klassifizierung",
 			fixedValuesCombo("#text", $values-rsw_data-keyword_print, $values-rsw_data-keyword_print, 20)
@@ -152,6 +159,15 @@ TEI[xml\|id="literature"] {
 
 TEI[xml\|id="corresp"],
 TEI[xml\|id="graphic"] {
+
+	publicationStmt > idno {
+		@include wideRowTwoButtons("insert.rsqv-id", "Identifikator",
+			"Typ: "
+			fixedValuesCombo("@type", $values-rsw_data-idnoMsType, $values-rsw_data-idnoMsType, 7)
+			button("open.browser")			
+			" Wert: "
+		);
+	}
 	sourceDesc {
 		@include headerRow("Quellen", button("insert.msDesc"));
 	}
@@ -189,13 +205,6 @@ TEI[xml\|id="graphic"] {
 
 TEI[xml\|id="corresp"] {
 	@include pageHeader("KORRESPONDENZ");
-	publicationStmt > idno {
-		@include wideRowTwoButtons("insert.rsqv-id", "Identifikator",
-			"Typ: "
-			fixedValuesCombo("@type", $valuesCorrespIdnoType, $valuesCorrespIdnoType, 7)
-			" Nummer: "
-		);
-	}
 	term {
 		@include headerRowContent("Klassifizierung", fixedValuesCombo("#text", $values-rsw_data-keyword_corresp, $values-rsw_data-keyword_corresp, 20));
 		visibility: -oxy-collapse-text;
@@ -224,14 +233,7 @@ TEI[xml\|id="graphic"] {
 }
 
 
-ab[xml\|id="repository"] > idno,
-TEI[xml\|id='graphic'] idno[type="RSQV"],
-TEI[xml\|id='reception'] idno[type="RSQV"],
-TEI[xml\|id="literature"] idno[type="RSQV"],
-TEI[xml\|id="event"] idno[type="RSQV"]
-{
-	@include wideRowTwoButtons ("insert.rsqv-id", "RSQV-ID")
-}
+
 
 
 performance {
@@ -265,20 +267,6 @@ performance {
 			);
 			@include removeRowMarginLR();
 			visibility: -oxy-collapse-text;
-		}
-
-		> settlement {
-			@include wideRow("Stadt",
-				fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
-				fixedValuesCombo("@precision", $values-rsw_data-placeNamePrecision, $labels-rsw_data-placeNamePrecision, 7)
-				nameButton("Verweis auf den Zielort einfügen", "place")
-			);
-			@include removeRowMarginLR();
-			visibility: -oxy-collapse-text;
-		}
-
-		> country{
-			@include removeRowMarginLR();
 		}
 
 		> persName {
@@ -316,41 +304,51 @@ place {
 			@include wideRowTwoButtons("insert.idnoGeoNames", "Identifikator",
 				"Typ: "
 				fixedValuesCombo("@type", $values-rsw_data-idnoPlaceType, $values-rsw_data-idnoPlaceType, 10)
-				" Nummer: "
+			button("open.browser")			
+				" Wert: "
 			);
 		}
 
 	> placeName{
 			&[type="reg"] {
-				@include wideRow("Name");
+				@include wideRow("Ortsname");
 			}
 			&[type="alt"] {
 				@include wideRow("Anderer Name");
 			}
 			&[type="toponym"] {
-				@include wideRow("Toponym");
+				@include wideRow("Toponym GN");
 			}
 			&[type="local"] {
-				@include wideRow("Lokaler Name");
+				@include wideRow("Lokaler Name GN");
 			}
-		}
-
-	> region{
-			@include wideRow("Region");
-		}
-
-	> settlement{
-			@include wideRow("Stadt");
 		}
 
 	> district{
-			@include wideRow("Stadtteil");
-		}
+		@include wideRow("übergeord. Stadtteil", nameButton("Verweis auf einen Ort einfügen", "place"));
+		visibility:-oxy-collapse-text;
+	}
+
+	> settlement{
+		@include wideRow("übergeord. Stadt", nameButton("Verweis auf einen Ort einfügen", "place"));
+		visibility:-oxy-collapse-text;			
+	}
+
+	> region{
+		@include wideRow("übergeord. Region", nameButton("Verweis auf einen Ort einfügen", "place"));
+		visibility:-oxy-collapse-text;
+	}
+		
+	> country {
+		@include wideRow("übergeord. Land", nameButton("Verweis auf einen Ort einfügen", "place"));
+		visibility:-oxy-collapse-text;
+	}
+
 
  > trait{
- 		white-space:pre-line;
 		@include headerRow("Beschreibung");
 		@include headerRowEnd("Identifikatoren");
+		white-space:-oxy-trim-when-ws-only;
 	}
 
 	> location > geo {
@@ -365,8 +363,9 @@ org {
 	> idno {
 		@include wideRowTwoButtons("insert.gnd-id", "Identifikator",
 			"Typ: "
-			fixedValuesCombo("@type", $valuesPersonIdnoType, $valuesPersonIdnoType, 7)
-			" Nummer: "
+			fixedValuesCombo("@type", $values-rsw_data-idnoPerOrgType, $values-rsw_data-idnoPerOrgType, 7)
+			button("open.browser")			
+			" Wert: "
 		);
 	}
 	listBibl bibl {
@@ -436,12 +435,33 @@ org {
 ab[xml\|id="repository"] {
 	@include pageHeader("QUELLEN-STANDORT");
 
+	> idno {
+		@include wideRowTwoButtons("insert.gnd-id", "Identifikator",
+			"Typ: "
+			fixedValuesCombo("@type", $values-rsw_data-idnoRepositoryType, $values-rsw_data-idnoRepositoryType, 7)
+			button("open.browser")			
+			" Wert: "
+		);
+	}
+
+	> country {
+		@include wideRow("Land", nameButton("Verweis auf einen Ort einfügen", "place"));
+		visibility:-oxy-collapse-text;
+	}
+
+	> settlement{
+		@include wideRow("Stadt", nameButton("Verweis auf einen Ort einfügen", "place"));
+		visibility:-oxy-collapse-text;			
+	}
+	
+/*
 	> settlement{
 		@include wideRow("Stadt");
 	}
+*/
 
 	> name{
-		@include wideRow("Standort");
+		@include wideRow("Standort-Name");
 	}
 }
 
@@ -584,14 +604,20 @@ objectDesc {
 
 handNote {
 	@include wideRowOneButton("HAND",
+		$lb $charIndent "Medium:                          "
+		fixedValuesCombo("@medium", $values-rsw_handNote-handNote-medium, $labels-rsw_handNote-handNote-medium)
+		
 		$lb $charIndent "Anteil:                               "
 		fixedValuesCombo("@scope", $values-rsw_data-handFeaturesScope, $labels-rsw_data-handFeaturesScope)
+		
 		$lb $charIndent "Schreiber:                       "
+		fixedValuesCombo("@cert", $values-rsw_data-certainty, $labels-rsw_data-certainty, 6)
 		fixedValuesCombo(
-			"@scribe",
-			oxy_concat("none, p12063, ", oxy_xpath('string-join(//rs[@type="person"]/@key | //persName/@key, ",") ')),
-			oxy_concat("\00a0, unbekannt, ", oxy_xpath('string-join((//rs[@type="person"] | //persName)/replace(string(.), ",", "\\${comma}") , ",") '))
+			"@scribeRef",
+			oxy_concat(", p12063, ", oxy_xpath('string-join(//rs[@type="person"]/@key | //persName/@key, ",") ')),
+			oxy_concat(", unbekannt, ", oxy_xpath('string-join((//rs[@type="person"] | //persName)/replace(string(.), ",", "\\${comma}") , ",") '))
 		)
+		
 		oxy_button(actionID, "insert.link.text.scribe")
 	);
 	@include removeRowMarginLR();
@@ -599,13 +625,13 @@ handNote {
 	padding-top:8px;
 	padding-bottom: 8px;
 
-	abbr{
-		@include narrowRow("Abkürzung");
+	> label{
+		@include narrowRow("Kürzel");
 		line-height:$defaultLineHeight;
 	}
 
-	expan{
-		@include narrowRow("Beschreibung");
+	> note{
+		@include narrowRow("Anmerkungen");
 		line-height:$defaultLineHeight;
 	}
 }
@@ -1017,7 +1043,7 @@ biblStruct {
 			@include narrowRow("Titel (Kurzform)");
 		}
 		&[type="sub"] {
-			@include narrowRow("Untertitel");
+			@include narrowRowTwoButtons("insert.subtitle", "Untertitel");
 		}
 	}
 
@@ -1025,15 +1051,15 @@ biblStruct {
 		@include narrowRow("Auflage");
 	}
 
-	idno[type="isbn"] {
-		@include narrowRow("ISBN");
+	idno {
+		&[type="url"] {
+			@include narrowRow("URL");
+		}
+		&[type="isbn"] {
+			@include narrowRow("ISBN");
+		}
 	}
-
-	idno[type="url"] {
-		@include wideRow("URL");
-		@include removeRowMarginLR();
-	}
-
+	
 	date {
 		@include narrowRowTwoButtons("insert.origDate", "Datierung",
 			fixedValuesCombo("@type", $values-rsw_imprint-imprint-date-type, $labels-rsw_imprint-imprint-date-type, 6)
@@ -1105,11 +1131,13 @@ actor persName {
 	visibility: -oxy-collapse-text;
 }
 
+/*
 country{
 	@include wideRow("Land",
 		"Kürzel: " editableCombo("@key", $valuesCountryKey, 6) " Name: "
 	);
 }
+*/
 
 faith {
 	@include wideRowTwoButtons("insert.faith", "Glaube",
@@ -1182,7 +1210,7 @@ affiliation{
 			nameButton("Verweis auf eine Organisation einfügen", "org")
 		}
 	}
-	gloss {
+	roleName {
 		&:before {
 			content: " (Ggf. Rolle:) » "
 		}

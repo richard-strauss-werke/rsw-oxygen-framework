@@ -70,7 +70,7 @@ public class SplitParagraph implements AuthorOperation {
 	        }
 	        	
 	        else {
-	          //The right splitted <p>
+	          //The right split <p>
 	          xmlToInsert = authorAccess.getDocumentController().serializeFragmentToXML(rightSplit);
 	        }
 	        
@@ -90,7 +90,6 @@ public class SplitParagraph implements AuthorOperation {
 
 	@Override
 	public ArgumentDescriptor[] getArguments() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
