@@ -55,9 +55,17 @@
 				<replacefilter token="${token1}" value="${value1}"/>
 				<replacefilter token="${token2}" value="${value2}"/>
 				<replacefilter token="${token3}" value="${value3}"/>
-				<replacefilter token="${token4}" value="${value4}"/>
-				<replacefilter token="${token5}" value="${value5}"/>
 			</replace>
+		
+		<!-- TODO add $ -->
+		<replaceregexp match="${regex1}" replace="${subst1}" byline="true">
+			<fileset dir="target/tmp-framework/RSW" includes="*.framework"/>
+		</replaceregexp>
+		
+		<replaceregexp match="${regex2}" replace="${subst2}" byline="true">
+			<fileset dir="target/tmp-framework/RSW" includes="*.framework"/>
+		</replaceregexp>
+		
 	</target>
 	
 	<target name="zip-framework" depends="copy-framework, replace-framework-vars">
