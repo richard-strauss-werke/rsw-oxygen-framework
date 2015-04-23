@@ -98,7 +98,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -130,7 +130,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -158,7 +158,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception&amp;action=surround&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception?action=surround&amp;fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -217,7 +217,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -276,7 +276,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/repository&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/repository?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -335,7 +335,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/work&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/work?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -367,7 +367,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/work&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/work?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -426,7 +426,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -458,7 +458,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -490,7 +490,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -518,7 +518,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -573,7 +573,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/corresp&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/corresp?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -628,7 +628,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -683,7 +683,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/event&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/event?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -742,7 +742,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -774,7 +774,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -802,7 +802,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature&amp;action=surround&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature?action=surround&amp;fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -1197,7 +1197,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -1225,7 +1225,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -1253,7 +1253,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -1281,7 +1281,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/latest&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/latest?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -1332,7 +1332,7 @@
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/latest&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/latest?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -8196,7 +8196,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -8228,7 +8228,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -8256,7 +8256,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -10245,7 +10245,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -10277,7 +10277,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -10309,7 +10309,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -10341,7 +10341,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/org?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -10647,7 +10647,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/place&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/place?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11281,7 +11281,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/performance&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/performance?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11336,7 +11336,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/graphic&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/graphic?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11395,7 +11395,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/person?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11454,7 +11454,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11486,7 +11486,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11514,7 +11514,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception&amp;action=surround&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/reception?action=surround&amp;fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11573,7 +11573,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11605,7 +11605,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature?fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11633,7 +11633,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature&amp;action=surround&amp;fulltext=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/list/literature?action=surround&amp;fulltext=</String>
 															</entry>
 														</map>
 													</field>
@@ -11684,7 +11684,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -11712,7 +11712,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -11740,7 +11740,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/lit?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
@@ -11768,7 +11768,7 @@ return
 															</entry>
 															<entry>
 																<String>url</String>
-																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/latest&amp;user=</String>
+																<String>https://raw.githubusercontent.com/richard-strauss-werke/rsw-oxygen-framework/master/src/test/json/snippet/latest?user=</String>
 															</entry>
 															<entry>
 																<String>user</String>
