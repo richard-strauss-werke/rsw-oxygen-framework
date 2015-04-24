@@ -309,6 +309,24 @@ place {
 			);
 		}
 
+	> desc {
+		@include wideRow("Beschreibung");
+	}
+
+	> placeName {
+		@include wideRowTwoButtons("insert.alias", "Anderer Name",
+			"Art: "
+			fixedValuesCombo("@type", $values-rsw_data-supplPlaceNameType, $labels-rsw_data-supplPlaceNameType, 15)
+			" Datierung: "
+			dateButton(false)
+			" Name: "
+		);
+		&[type="reg"] {
+			@include wideRow("Name");
+		}
+	}
+
+/*
 	> placeName{
 			&[type="reg"] {
 				@include wideRow("Ortsname");
@@ -323,6 +341,7 @@ place {
 				@include wideRow("Lokaler Name GN");
 			}
 		}
+*/
 
 	> district{
 		@include wideRow("übergeord. Stadtteil", nameButton("Verweis auf einen Ort einfügen", "place"));
@@ -344,12 +363,13 @@ place {
 		visibility:-oxy-collapse-text;
 	}
 
-
+/*
  > trait{
 		@include headerRow("Beschreibung");
 		@include headerRowEnd("Identifikatoren");
 		white-space:-oxy-trim-when-ws-only;
 	}
+	*/
 
 	> location > geo {
 			@include wideRow("Koordinaten");

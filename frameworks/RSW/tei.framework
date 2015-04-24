@@ -5103,7 +5103,7 @@ self::*:orgName[count(../*:orgName[not(@type='reg')]) > 1] or
 self::*:series[count(../*:series) > 1] or
 self::*:relatedItem[count(../*:relatedItem) > 1] or
 self::*:residence[count(../*:residence) > 1] or
-self::*:placeName[count(../*:placeName) > 1] or
+self::*:placeName[count(../*:placeName[not(@type='reg')]) > 1] or
 self::*:occupation[count(../*:occupation) > 1] or
 self::*:affiliation[count(../*:affiliation) > 1] or
 self::*:state[count(../*:state) > 1] or
@@ -7988,6 +7988,34 @@ return
 															<entry>
 																<String>fragment</String>
 																<String>&lt;persName xmlns="http://www.tei-c.org/ns/1.0" type="unknown">&lt;/persName></String>
+															</entry>
+															<entry>
+																<String>insertLocation</String>
+																<String>.</String>
+															</entry>
+															<entry>
+																<String>insertPosition</String>
+																<String>After</String>
+															</entry>
+															<entry>
+																<String>schemaAware</String>
+																<String>false</String>
+															</entry>
+														</map>
+													</field>
+													<field name="operationID">
+														<String>ro.sync.ecss.extensions.commons.operations.InsertFragmentOperation</String>
+													</field>
+												</actionMode>
+												<actionMode>
+													<field name="xpathCondition">
+														<String>self::*:placeName</String>
+													</field>
+													<field name="argValues">
+														<map>
+															<entry>
+																<String>fragment</String>
+																<String>&lt;placeName xmlns="http://www.tei-c.org/ns/1.0" type="unknown">&lt;/placeName></String>
 															</entry>
 															<entry>
 																<String>insertLocation</String>

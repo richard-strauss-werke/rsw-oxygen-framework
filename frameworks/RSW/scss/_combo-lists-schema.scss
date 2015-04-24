@@ -513,8 +513,8 @@ $labels-rsw_data-persNamePerformanceRole:", Dirigent, Regisseur, Bühnenbild, Ko
 $values-rsw_data-idnoPlaceType:"geonames, getty, viaf, gnd, url";
 $labels-rsw_data-idnoPlaceType:"ID von http://www.geonames.org/, ID von http://www.getty.edu/research/tools/vocabularies/tgn/, VIAF-ID, GND-ID, URL identifier";
 
-$values-rsw_placeName-placeName-type:"reg, alt, toponym, local";
-$labels-rsw_placeName-placeName-type:"regulär, Alternative, , ";
+$values-rsw_data-supplPlaceNameType:"unknown, local, geonames, full, former, later, real, variant, other";
+$labels-rsw_data-supplPlaceNameType:"unbekannte Art, lokaler Name, GeoNames-Name, voller Name, früherer Name, späterer Name, wirklicher Name, Variante, sonstige Art";
 
 $values-rsw_data-idnoRepositoryType:"rism, gnd, viaf, url";
 $labels-rsw_data-idnoRepositoryType:"RISM-ID, GND-ID, VIAF-ID, URL identifier";
