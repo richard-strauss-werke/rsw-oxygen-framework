@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.aerhard.oxygen</groupId>
     <artifactId>oxygen-tei-ext</artifactId>
-    <version>1.4.9</version>
+    <version>1.5.1</version>
     <name>RSW oXygen framework</name>
     <description>oXygen framework of the research project "Richard Strauss: Werke. Kritische Ausgabe" for editing TEI / MEI files
     </description>

@@ -1041,13 +1041,13 @@ author {
 
 editor {
 	@include narrowRowOneButton("Herausgeber");
-	&[role="assistant"]:before {
+	&[role="assistant"] {
 		@include narrowRowOneButton("Hrsg.-Mitarbeiter");
 	}
-	&[role="translator"]:before {
+	&[role="translator"] {
 		@include narrowRowOneButton("Übersetzer");
 	}
-	&[role="copy-editor"]:before {
+	&[role="copy-editor"] {
 		@include narrowRowOneButton("Redakteur");
 	}
 }
