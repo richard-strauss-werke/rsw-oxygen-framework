@@ -6,6 +6,9 @@ The RSW oXygen framework makes extensive use of form controls in oXygen's Author
 Status
 ------
 
+[![Build Status](https://travis-ci.org/richard-strauss-werke/rsw-oxygen-framework.svg?branch=master)](https://travis-ci.org/richard-strauss-werke/rsw-oxygen-framework)
+
+
 In development / migration. The UI has only been tested in oXygen 15.0 on Windows 7 - obtaining a clean look with other setups most probably requires changes to the SCSS variables in `/frameworks/RSW/scss` to adjust the CSS to deviating Java UI component dimensions.
 
 Directory structure
@@ -18,8 +21,6 @@ Setup for development
 
 - install Ant
 - install Maven
-- install the [oXygen 16 SDK](http://www.oxygenxml.com/oxygen_sdk.html) in your local Maven repo
-- install the dbTagger plugin in your local Maven repo
 - run `ant build` from the project's root directory 
 - in oXygen, open the `Options` dialog, select `Document type associations` and add `/path/to/projectdir/frameworks/` to the list of additional framework directories (note: be sure to add the parent folder of the actual framework directory, not the framework directory `/path/to/projectdir/frameworks/RSW/` itself). Restart oXygen to let the changes take effect. 
 
