@@ -12,6 +12,9 @@
 
         <!-- change the values of the following variable in build.properties -->
         <extension.id></extension.id>
+        <odd.project>strauss-ODD</odd.project>
+        <odd.branch>master</odd.branch>
+        <odd.src>https://codeload.github.com/richard-strauss-werke/${odd.project}/zip/${odd.branch}</odd.src>
     </properties>
 
     <dependencies>
@@ -79,6 +82,115 @@
                     <debug>true</debug>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>download-files</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <get src="${odd.src}"
+                                     dest="${project.build.directory}/odd.zip"
+                                     verbose="false"
+                                     usetimestamp="true"/>
+                                <unzip src="${project.build.directory}/odd.zip" dest="${project.build.directory}/odd"/>
+                                <copy todir="${project.basedir}/frameworks/RSW/schema">
+                                    <fileset dir="${project.build.directory}/odd/${odd.project}-${odd.branch}/build/production/relaxng"/>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <forceCreation>true</forceCreation>
+                    <transformationSets>
+                        <transformationSet>
+                            <parameters>
+                                <parameter>
+                                    <name>rngCollectionPath</name>
+                                    <value>../frameworks/RSW/schema/?select=*.rng</value>
+                                </parameter>
+                                <parameter>
+                                    <name>teiSassFileName</name>
+                                    <value>../frameworks/RSW/scss/tei.scss</value>
+                                </parameter>
+                                <parameter>
+                                    <name>meiSassFileName</name>
+                                    <value>../frameworks/RSW/scss/mei.scss</value>
+                                </parameter>
+                                <parameter>
+                                    <name>targetSassFileName</name>
+                                    <value>frameworks/RSW/scss/_combo-lists-schema.scss</value>
+                                </parameter>
+                                <parameter>
+                                    <name>targetXmlFileName</name>
+                                    <value>dist/variables/oddVariables.xml</value>
+                                </parameter>
+                            </parameters>
+                            <dir>.</dir>
+                            <includes>
+                                <include>pom.xml</include>
+                            </includes>
+                            <stylesheet>tools/extractSchemaData.xsl</stylesheet>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>Saxon-HE</artifactId>
+                        <version>9.6.0-5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>nl.geodienstencentrum.maven</groupId>
+                <artifactId>sass-maven-plugin</artifactId>
+                <version>2.0-RC1</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>update-stylesheets</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <useCompass>true</useCompass>
+                    <resources>
+                        <resource>
+                            <source>
+                                <directory>frameworks/RSW/scss</directory>
+                            </source>
+                            <destination>frameworks/RSW/css</destination>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.3.v20140905</version>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -100,89 +212,6 @@
                         <finalName>rsw</finalName>
                         <outputDirectory>frameworks/RSW/lib</outputDirectory>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>nl.geodienstencentrum.maven</groupId>
-                    <artifactId>sass-maven-plugin</artifactId>
-                    <version>2.0-RC1</version>
-                    <executions>
-                        <execution>
-                            <id>package</id>
-                            <phase>compile</phase>
-                            <goals>
-                                <goal>update-stylesheets</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <useCompass>true</useCompass>
-                        <resources>
-                            <resource>
-                                <source>
-                                    <directory>frameworks/RSW/scss</directory>
-                                </source>
-                                <destination>frameworks/RSW/css</destination>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-maven-plugin</artifactId>
-                    <version>9.2.3.v20140905</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>xml-maven-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>transform</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <forceCreation>true</forceCreation>
-                        <transformationSets>
-                            <transformationSet>
-                                <parameters>
-                                    <parameter>
-                                        <name>rngCollectionPath</name>
-                                        <value>../frameworks/RSW/schema/?select=*.rng</value>
-                                    </parameter>
-                                    <parameter>
-                                        <name>teiSassFileName</name>
-                                        <value>../frameworks/RSW/scss/tei.scss</value>
-                                    </parameter>
-                                    <parameter>
-                                        <name>meiSassFileName</name>
-                                        <value>../frameworks/RSW/scss/mei.scss</value>
-                                    </parameter>
-                                    <parameter>
-                                        <name>targetSassFileName</name>
-                                        <value>frameworks/RSW/scss/_combo-lists-schema.scss</value>
-                                    </parameter>
-                                    <parameter>
-                                        <name>targetXmlFileName</name>
-                                        <value>dist/variables/oddVariables.xml</value>
-                                    </parameter>
-                                </parameters>
-                                <dir>.</dir>
-                                <includes>
-                                    <include>pom.xml</include>
-                                </includes>
-                                <stylesheet>tools/extractSchemaData.xsl</stylesheet>
-                            </transformationSet>
-                        </transformationSets>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>net.sf.saxon</groupId>
-                            <artifactId>Saxon-HE</artifactId>
-                            <version>9.6.0-5</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>

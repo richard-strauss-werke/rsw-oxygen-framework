@@ -39,7 +39,7 @@
 	
 	<target name="build" depends="clean">
 		<exec executable="${maven.command}">
-			<arg line="xml:transform sass:update-stylesheets install -Dextension.id=${extension.id}"/>
+			<arg line="install -Dextension.id=${extension.id}"/>
 		</exec>
 	</target>
 
