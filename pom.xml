@@ -15,6 +15,7 @@
         <odd.project>strauss-ODD</odd.project>
         <odd.branch>master</odd.branch>
         <odd.src>https://codeload.github.com/richard-strauss-werke/${odd.project}/zip/${odd.branch}</odd.src>
+        <sass.variables>variables.default.scss</sass.variables>
     </properties>
 
     <dependencies>
@@ -103,6 +104,9 @@
                                 <copy todir="${project.basedir}/frameworks/RSW/schema">
                                     <fileset dir="${project.build.directory}/odd/${odd.project}-${odd.branch}/build/production/relaxng"/>
                                 </copy>
+
+                                <delete file="${project.basedir}/frameworks/RSW/scss/_custom-var.scss"/>
+                                <copy file="${sass.variables}" tofile="${project.basedir}/frameworks/RSW/scss/_custom-var.scss"/>
                             </target>
                         </configuration>
                     </execution>

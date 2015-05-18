@@ -8,6 +8,10 @@
 		<os family="windows"/>
 	</condition>
 
+	<condition property="sass-var-path" value="variables.scss" else="variables.default.scss">
+		<available file="variables.scss"/>
+	</condition>
+
 	<path id="classpath.core">
 		<fileset dir="${server.dir}/lib">
 			<include name="**/*.jar"/>
@@ -39,7 +43,7 @@
 	
 	<target name="build" depends="clean">
 		<exec executable="${maven.command}">
-			<arg line="install -Dextension.id=${extension.id}"/>
+			<arg line="install -Dextension.id=${extension.id} -Dsass.variables=${sass-var-path}"/>
 		</exec>
 	</target>
 
