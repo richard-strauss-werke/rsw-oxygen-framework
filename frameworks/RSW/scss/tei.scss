@@ -175,6 +175,8 @@ TEI[xml\|id="graphic"] {
 		content:
 		"Reproduktionen: "
 		button("insert.surrogates.image")
+		button("insert.surrogates.pdf")
+		button("insert.surrogates.url")
 		button("insert.msDesc");
 	}
 	listBibl {
@@ -667,7 +669,7 @@ accMat {
 }
 
 surrogates{
-	@include headerRow("Reproduktionen", button("insert.surrogates.pdf"));
+	@include headerRow("Reproduktionen", button("insert.surrogates.pdf") button("insert.surrogates.url"));
 	@include removeRowMarginLR();
 
 	> msDesc {
@@ -696,6 +698,13 @@ surrogates{
 			);
 			margin-left:10px;
 		}
+
+		&[type="url"] {
+        	@include narrowRowOneButton("URL",
+        		textField("@target", 30)
+        	);
+        	margin-left:10px;
+        }
 	}
 }
 

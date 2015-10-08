@@ -276,8 +276,8 @@ $labels-rsw_data-precision:", hoch, mittel, niedrig, unbekannt";
 $values-rsw_data-placeNamePrecision:", high, medium";
 $labels-rsw_data-placeNamePrecision:", nahe, bei";
 
-$values-rsw_data-revisionDescChangeType:", UO, UC, UA, UP, UI, UM, UD, UG, UH, UF, UJ, UB, UE, UZ, UW, KO, KC, KA, KP, KI, KM, KD, KG, KH, KF, KJ, KB, KE, KZ, KW, VQ, VT, VL, P, C, A";
-$labels-rsw_data-revisionDescChangeType:", Übertragen nach Original, Übertragen nach Entwurf, Übertragen nach Abschrift v.f.H., Übertragen nach Papierkopie, Übertragen nach Mikroform, Übertragen nach autogr. Abschrift, Übertragen nach Original [Digitalisat], Übertragen nach Entwurf [Digitalisat], Übertragen nach Abschrift v.f.H. [Digitalisat], Übertragen nach Papierkopie [Digitalisat], Übertragen nach Mikroform [Digitalisat], Übertragen nach autogr. Abschrift [Digitalisat], Übertragen nach Edition, Übertragen nach Auszug, Übertragen, Korrigiert nach Original, Korrigiert nach Entwurf, Korrigiert nach Abschrift v.f.H., Korrigiert nach Papierkopie, Korrigiert nach Mikroform, Korrigiert nach autogr. Abschrift, Korrigiert nach Original [Digitalisat], Korrigiert nach Entwurf [Digitalisat], Korrigiert nach Abschrift v.f.H. [Digitalisat], Korrigiert nach Papierkopie [Digitalisat], Korrigiert nach Mikroform [Digitalisat], Korrigiert nach autogr. Abschrift [Digitalisat], Korrigiert nach Edition, Korrigiert nach Auszug, Korrigiert, Vollständigkeit der Quellenübertragung bestätigt, Vollständigkeit der Textauszeichnung bestätigt, Vollständigkeit der Verlinkung bestätigt, Vorgeschlagen zur Publikation, Als möglicherweise publikationsfertig gekennzeichnet, Zur Publikation freigegeben";
+$values-rsw_data-revisionDescChangeType:", UO, UC, UA, UP, UI, UM, UD, UG, UH, UF, UJ, UB, UE, UZ, UW, KO, KC, KA, KP, KI, KM, KD, KG, KH, KF, KJ, KB, KE, KZ, KW, VQ, VT, VL, KUM, P, C, A";
+$labels-rsw_data-revisionDescChangeType:", Übertragen nach Original, Übertragen nach Entwurf, Übertragen nach Abschrift v.f.H., Übertragen nach Papierkopie, Übertragen nach Mikroform, Übertragen nach autogr. Abschrift, Übertragen nach Original [Digitalisat], Übertragen nach Entwurf [Digitalisat], Übertragen nach Abschrift v.f.H. [Digitalisat], Übertragen nach Papierkopie [Digitalisat], Übertragen nach Mikroform [Digitalisat], Übertragen nach autogr. Abschrift [Digitalisat], Übertragen nach Edition, Übertragen nach Auszug, Übertragen, Korrigiert nach Original, Korrigiert nach Entwurf, Korrigiert nach Abschrift v.f.H., Korrigiert nach Papierkopie, Korrigiert nach Mikroform, Korrigiert nach autogr. Abschrift, Korrigiert nach Original [Digitalisat], Korrigiert nach Entwurf [Digitalisat], Korrigiert nach Abschrift v.f.H. [Digitalisat], Korrigiert nach Papierkopie [Digitalisat], Korrigiert nach Mikroform [Digitalisat], Korrigiert nach autogr. Abschrift [Digitalisat], Korrigiert nach Edition, Korrigiert nach Auszug, Korrigiert, Vollständigkeit der Quellenübertragung bestätigt, Vollständigkeit der Textauszeichnung bestätigt, Vollständigkeit der Verlinkung bestätigt, Kumuliert mit anderem Datensatz, Vorgeschlagen zur Publikation, Als möglicherweise publikationsfertig gekennzeichnet, Zur Publikation freigegeben";
 
 $values-rsw_data-idnoPerOrgType:"viaf, gnd, url";
 $labels-rsw_data-idnoPerOrgType:"VIAF-ID [http://viaf.org/viaf/], GND-ID [http://d-nb.info/gnd/], URL identifier";
@@ -327,8 +327,8 @@ $labels-rsw_add-add-place:"über der Zeile, unter der Zeile, in der Zeile, am Ra
 $values-rsw_del-del-rend:"strikethrough, overwritten, erased, unknown";
 $labels-rsw_del-del-rend:"durchgestrichen, überschrieben, getilgt, unbekannt";
 
-$values-rsw_ptr-ptr-type:"pdf, image";
-$labels-rsw_ptr-ptr-type:", ";
+$values-rsw_ptr-ptr-type:"pdf, image, url";
+$labels-rsw_ptr-ptr-type:", , ";
 
 $values-rsw_list-list-type:", gloss, index, instructions, litany, syllogism";
 $labels-rsw_list-list-type:", each list item glosses some term or concept${comma} which is given by a label element preceding the list item., each list item is an entry in an index such as the alphabetical topical index at the back of a print volume., each list item is a step in a sequence of instructions${comma} as in a recipe., each list item is one of a sequence of petitions${comma} supplications or invocations${comma} typically in a religious ritual., each list item is part of an argument consisting of two or more propositions and a final conclusion derived from them.";
@@ -366,8 +366,8 @@ $labels-rsw_castItem-castItem-type:", the item describes a single role., the ite
 $values-rsw_include-include-parse:", xml, text";
 $labels-rsw_include-include-parse:", , ";
 
-$values-rsw_data-idnoMsType:"rsqv, uag, url";
-$labels-rsw_data-idnoMsType:"RSQV-ID [http://rsqv.de/], UAG-ID, URL identifier";
+$values-rsw_data-idnoMsType:"rsqv, uag, slub, url";
+$labels-rsw_data-idnoMsType:"RSQV-ID [http://rsqv.de/], UAG-ID, SLUB-ID [http://digital.slub-dresden.de/], URL identifier";
 
 $values-rsw_data-keyword_corresp:", Brief, Postkarte, Kartenbrief, Briefumschlag, Telegramm, schriftliche Mitteilung, Visitenkarte, Vertrag, Notiz, Notizbuch, Musikhandschrift, Schriftstück";
 $labels-rsw_data-keyword_corresp:", http://d-nb.info/gnd/4008240-4, http://d-nb.info/gnd/4046902-5, , http://d-nb.info/gnd/4146614-7, http://d-nb.info/gnd/4184647-3, http://d-nb.info/gnd/4180011-4, http://d-nb.info/gnd/4188409-7, http://d-nb.info/gnd/4063270-2, http://d-nb.info/gnd/4206777-7, http://d-nb.info/gnd/4225695-1, http://d-nb.info/gnd/4040847-4, http://d-nb.info/gnd/4180009-6";
@@ -495,8 +495,8 @@ $labels-rsw_data-changeEventType:"unbekannte Kategorie, Treffen, schöpf. Tätig
 $values-rsw_data-keyword_graphic:", Theaterzettel, Zeichnung, Entwurfszeichnung, Druckgraphik, Gemälde, Photographie";
 $labels-rsw_data-keyword_graphic:", http://d-nb.info/gnd/4185060-9, http://d-nb.info/gnd/4127900-1, http://d-nb.info/gnd/4152458-5, http://d-nb.info/gnd/4113357-2, http://d-nb.info/gnd/4122164-3, http://d-nb.info/gnd/4045895-7";
 
-$values-rsw_data-idnoPrintType:"oclc, rsqv, url";
-$labels-rsw_data-idnoPrintType:"OCLC-ID [http://www.worldcat.org/oclc/], RSQV-ID [http://rsqv.de/], URL identifier";
+$values-rsw_data-idnoPrintType:"oclc, rsqv, slub, url";
+$labels-rsw_data-idnoPrintType:"OCLC-ID [http://www.worldcat.org/oclc/], RSQV-ID [http://rsqv.de/], SLUB-ID [http://digital.slub-dresden.de/], URL identifier";
 
 $values-rsw_data-keyword_print:", Rezension, Interview, Zeitungsaufsatz, Zeitschriftenaufsatz, Aufsatz, Kapitel, Sammelwerk, Monographie, Libretto, Dissertation, Magisterarbeit, Musikdruck, Druckwerk, Online-Publikation";
 $labels-rsw_data-keyword_print:", http://d-nb.info/gnd/4049712-4, http://d-nb.info/gnd/4027503-6, http://d-nb.info/gnd/4125430-2, http://d-nb.info/gnd/4125424-7, , http://d-nb.info/gnd/4290552-7, http://d-nb.info/gnd/4202533-3, http://d-nb.info/gnd/4454906-4, http://d-nb.info/gnd/4035588-3, http://d-nb.info/gnd/4012494-0, http://d-nb.info/gnd/4168514-3, http://d-nb.info/gnd/4075121-1, http://d-nb.info/gnd/4013134-8, http://d-nb.info/gnd/4511937-5";
