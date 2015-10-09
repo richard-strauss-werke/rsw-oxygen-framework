@@ -12284,7 +12284,7 @@ return
 														<map>
 															<entry>
 																<String>fragment</String>
-																<String>&lt;ptr type="pdf" xmlns="http://www.tei-c.org/ns/1.0">${caret}&lt;/ptr></String>
+																<String>&lt;ptr type="url" xmlns="http://www.tei-c.org/ns/1.0">${caret}&lt;/ptr></String>
 															</entry>
 															<entry>
 																<String>insertLocation</String>

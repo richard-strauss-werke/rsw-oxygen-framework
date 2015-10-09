@@ -701,7 +701,7 @@ surrogates{
 
 		&[type="url"] {
         	@include narrowRowOneButton("URL",
-        		textField("@target", 30)
+        		textField("@target", 120)
         	);
         	margin-left:10px;
         }
