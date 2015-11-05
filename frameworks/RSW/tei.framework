@@ -4931,6 +4931,30 @@ and not((ancestor-or-self::*:div)[1]//*:postscript)</String>
 											<actionMode-array>
 												<actionMode>
 													<field name="xpathCondition">
+														<String>ancestor-or-self::*:p and ancestor-or-self::*:p/preceding-sibling::*:p and not(ancestor-or-self::*:p/following-sibling::*:p)</String>
+													</field>
+													<field name="argValues">
+														<map>
+															<entry>
+																<String>fragment</String>
+																<String>&lt;byline xmlns="http://www.tei-c.org/ns/1.0" rend="align(right)"/></String>
+															</entry>
+															<entry>
+																<String>insertLocation</String>
+																<String>ancestor-or-self::*:p</String>
+															</entry>
+															<entry>
+																<String>insertPosition</String>
+																<String>After</String>
+															</entry>
+														</map>
+													</field>
+													<field name="operationID">
+														<String>ro.sync.ecss.extensions.commons.operations.InsertFragmentOperation</String>
+													</field>
+												</actionMode>
+												<actionMode>
+													<field name="xpathCondition">
 														<String>ancestor-or-self::*[local-name() = 'p']</String>
 													</field>
 													<field name="argValues">
